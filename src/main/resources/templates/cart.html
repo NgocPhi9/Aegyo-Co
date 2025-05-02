@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart-style.css" />
+  </head>
+  <body>
+    <div th:replace="~{header :: header}"></div>
+
+    <div id="main">
+      <h1 class="cart-title">Giỏ hàng của bạn</h1>
+
+      <div class="cart-container">
+        <div class="list-items">
+          <div class="item">
+            <a href="product.html" class="product-item">
+              <img class="cart-image" src="/images/snsd.jpg" alt="Ảnh giỏ hàng"/>
+              <h3>Product</h3>
+            </a>
+            <div class="control-item">
+              <div class="quantity-btn">
+                <button onclick="decreaseQty(this)">-</button>
+                <input type="number" class="quantity" value="1" onchange="changeQty(this)"/>
+                <button onclick="increaseQty(this)">+</button>
+              </div>
+              <h3>Price</h3>
+              <button class="remove-btn" onclick="removeItem(this)">X</button>
+            </div>
+          </div>
+
+          <a class="go-back" href="index.html">Tiếp tục mua sắm</a>
+        </div>
+        <div class="checkout-form">
+          <h3>Thành tiền</h3>
+          <label for="name">Họ và tên:</label>
+          <input type="text" id="name" name="name" />
+          <label for="phone">Số điện thoại:</label>
+          <input type="text" id="phone" name="phone" />
+          <label for="address">Địa chỉ:</label>
+          <textarea id="address" class="text-box" name="address" rows="4" maxlength="100"></textarea>
+          <label>Phương thức thanh toán:</label>
+          <div class="payment-methods">
+            <input type="radio" name="payment" value="cod" checked /> Thanh toán khi nhận hàng (COD)<br />
+            <input type="radio" name="payment" value="visa" /> Thẻ VISA<br />
+            <input type="radio" name="payment" value="bank" /> Chuyển khoản ngân hàng
+          </div>
+          <button class="btn">ĐẶT HÀNG</button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/cart.js"></script>
+  </body>
+</html>

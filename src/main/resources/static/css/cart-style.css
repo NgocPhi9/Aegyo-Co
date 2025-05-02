@@ -1,0 +1,136 @@
+.cart-title {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.go-back {
+  width: fit-content;
+  display: inline-block;
+  margin-top: 10px;
+  color: black;
+}
+
+.cart-container {
+  width: 70%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 50px;
+}
+
+.list-items {
+  flex: 1 1 65%;
+}
+
+.item {
+  display: flex;
+  border-bottom: 2px solid #78a2cc;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.product-item {
+  display: flex;
+  flex: 1 1 45%;
+  column-gap: 20px;
+  align-items: center;
+  margin: 20px 0;
+  color: black;
+}
+
+.product-item a {
+  width: 100%;
+}
+
+.control-item {
+  display: flex;
+  flex: 1 1 50%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.cart-image {
+  width: 130px;
+  border-radius: 10px;
+}
+
+.quantity-btn {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  background: #78a2cc;
+  border: 1px solid black;
+}
+
+.quantity-btn button {
+  width: 40px;
+  height: 40px;
+  background: #78a2cc;
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity-btn button:first-child {
+  border-right: 1px solid black;
+}
+
+.quantity-btn button:last-child {
+  border-left: 1px solid black;
+}
+
+/* Nút tăng giảm */
+.quantity-btn input.quantity::-webkit-inner-spin-button,
+.quantity-btn input.quantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+  color: white;
+  font-weight: bold;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #78a2cc;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.checkout-form {
+  width: 30%;
+  min-width: 300px;
+  background: #78a2cc;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  line-height: 2rem;
+}
+
+.checkout-form h3 {
+  border-bottom: 2px solid white;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  background-color: whitesmoke;
+}

@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart-style.css" />
+    <link rel="stylesheet" href="/css/product-style.css" />
+  </head>
+  <body>
+    <div th:replace="~{header :: header}"></div>
+    <div id="main">
+      <div id="toast-container"></div>
+
+      <div class="product-container" >
+        <img class="product-img" th:src="@{/images/{image}(image=${product.imageLink})}" />
+
+        <div class="product-info">
+          <h3 th:text="${product.productName}"></h3>
+
+          <div class="numbers">
+            <p>Review</p>
+            <p>View</p>
+          </div>
+
+          <h3 th:text="${product.price}"></h3>
+
+          <div class="promotion">
+            <h3>Khuyến mãi</h3>
+            <div class="tooltip-container">
+              <img src="/images/free-delivery.png" alt="Freeship" />
+              <div class="tooltip">Miễn phí vận chuyển</div>
+            </div>
+            <div class="tooltip-container">
+              <img src="/images/good-price.png" alt="Good price" />
+              <div class="tooltip">Giá tốt trên thị trường</div>
+            </div>
+          </div>
+          <h3>Mô tả</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+            iusto obcaecati, aperiam reiciendis repellat pariatur modi
+            aspernatur ex atque fugit quae possimus illo vel. Aliquam sed ex
+            nemo placeat eligendi.
+          </p>
+          <div class="quantity-btn">
+            <button onclick="decreaseQty(this)">-</button>
+            <input type="number" class="quantity" value="1" onchange="changeQty(this)"/>
+            <button onclick="increaseQty(this)">+</button>
+          </div>
+          <button class="btn add-btn" th:data-id="${product.idProduct}"
+                  onclick="addToCart(event)">Thêm vào giỏ hàng</button>
+          <button class="btn">Mua ngay</button>
+        </div>
+      </div>
+      <div class="review-container">
+        <div class="tabs">
+          <div class="tab active-review" id="reviewTab" onclick="showTab('review')">
+            Đánh giá
+          </div>
+          <div class="tab" id="commentTab" onclick="showTab('comment')">
+            Bình luận
+          </div>
+        </div>
+
+        <div class="content-container bg-review" id="contentContainer">
+          <div class="review-content visible" id="reviewContent">
+            <p>Đây là nội dung phần review của sản phẩm hoặc dịch vụ.</p>
+          </div>
+          <div class="comment-content" id="commentContent">
+            <p>Đây là nơi người dùng có thể bình luận và thảo luận.</p>
+            <textarea class="text-box comment-box" rows="3" placeholder="Nhập bình luận của bạn..." maxlength="1000"></textarea>
+            <button class="btn comment-btn">Gửi bình luận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/cart.js"></script>
+    <script src="/js/review.js"></script>
+  </body>
+</html>

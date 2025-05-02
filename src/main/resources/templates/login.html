@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chủ</title>
+</head>
+<body>
+
+<!-- Nếu đã đăng nhập -->
+<div th:if="${user != null}">
+  <p>Xin chào, <span th:text="${user.userName}">Tên</span>!</p>
+  <p>id, <span th:text="${user.idUser}">Tên</span>!</p>
+  <a href="/logout">Đăng xuất</a>
+</div>
+
+<!-- Nếu chưa đăng nhập -->
+<div th:if="${user == null}">
+  <a href="/oauth2/authorization/google">Đăng nhập bằng Google</a><br>
+  <a href="/oauth2/authorization/github">Đăng nhập bằng GitHub</a><br>
+  <a href="/oauth2/authorization/facebook">Đăng nhập bằng Facebook</a>
+</div>
+
+</body>
+</html>

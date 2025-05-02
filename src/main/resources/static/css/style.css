@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#main {
+  background: linear-gradient(
+          45deg,
+          #7496b8,
+          #e3c4e6,
+          #bed3e3,
+          #c7e6f7,
+          #f7e0f9
+  );
+  min-height: 100vh;
+  display: flow-root;
+}
+
+.card-container {
+  margin: 100px auto;
+  width: 60%;
+  line-height: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px 40px;
+}
+
+.product-image {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card {
+  flex: 0 0 250px;
+  min-width: 250px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  opacity: 1;
+}
+
+.card:nth-child(even) {
+  background-color: rgb(188, 127, 180);
+}
+
+.card:nth-child(odd) {
+  background-color: rgb(79, 168, 236);
+}
+
+.image-button {
+  position: relative;
+}
+
+.add-to-cart {
+  position: absolute;
+  left: 0px;
+  border: none;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border-radius: 50%;
+}
+
+.card:hover .add-to-cart {
+  opacity: 1;
+}
+
+.add-to-cart:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.toast {
+  background-color: #7496b8;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.btn {
+  background: linear-gradient(to right, #ff7eb3, #ff758c);
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+}
+
+.text-box {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  background-color: whitesmoke;
+}

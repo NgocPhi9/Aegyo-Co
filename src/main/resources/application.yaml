@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tmdt
+    username: root
+    password: 1234
+
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format-sql: true
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23li9XOkAMGcC8gS3h
+            client-secret: 9cebe001ac379eef6d2c3916cc982bb1dff691b0
+          google:
+            client-id: 904505695080-okijosvkjhf50ts75a9uguom3fi3j559.apps.googleusercontent.com
+            client-secret: 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
