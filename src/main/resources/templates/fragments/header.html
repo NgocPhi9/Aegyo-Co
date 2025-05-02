@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <!-- Add after other CSS links -->
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <title>Aegyo & Co.</title>
+  </head>
+  <body>
+    <header >
+      <nav class="header-navigation">
+        <div class="header-part">
+          <div class="header-logo">
+            <a href="/4Moos">Aegyo and Co.</a>
+          </div>
+        </div>
+        <div class="header-part">
+          <div class="header-nav">
+            <div class="header-nav-item">
+              <div class="dropdown">
+                <button class="dropbtn">
+                  Dropdown
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <div class="row">
+                    <div class="column">
+                      <h3>Solo Artists</h3>
+                      <a href="#">IU</a>
+                      <a href="#">TAEYEON</a>
+                      <a href="#">ZICO</a>
+                    </div>
+                    <div class="column">
+                      <h3>Groups</h3>
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                    <div class="column">
+                      <h3>Category 3</h3>
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="header-nav-item"><a href="../index.html">Albums</a></div>
+            <div class="header-nav-item">
+              <a href="../index.html">Lightsticks</a>
+            </div>
+            <div class="header-nav-item"><a href="../index.html">MD</a></div>
+          </div>
+        </div>
+        <div class="header-part">
+          <div class="header-searchbar">
+            <input type="search" placeholder="Search..." />
+          </div>
+          <div class="header-profile">
+            <a href="/login">
+              <img
+                src="https://www.svgrepo.com/show/502899/user.svg"
+                alt="Profile Picture"
+            /></a>
+          </div>
+          <div class="header-cart">
+            <a href="/4Moos/cart">
+              <img
+                src="https://www.svgrepo.com/show/505322/cart-2.svg"
+                alt="Cart Picture"
+            /></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </body>
+</html>

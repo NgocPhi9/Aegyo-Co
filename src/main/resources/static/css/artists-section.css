@@ -1,0 +1,82 @@
+
+/* Artists Section */
+.artists-section {
+    padding: 80px 20px;
+}
+
+.artists-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1300px;
+    margin: 0 auto 100px;
+    align-items: center;
+}
+
+.artists-container.reverse {
+    direction: rtl;
+}
+
+.artists-container.reverse > * {
+    direction: ltr;
+}
+
+.artists-content {
+    padding: 30px;
+}
+
+.artists-content h2 {
+    font-size: 40px;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    color: #222b49;
+}
+
+.artists-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.learn-more {
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    color: #222b49;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+}
+
+.learn-more span {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.learn-more:hover {
+    color: #1a2038;
+    text-decoration: underline;
+}
+
+.learn-more:hover span {
+    transform: translateX(5px);
+}
+
+.artists-image {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.artists-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.artists em{
+    font-family: 'Editorial Old Ultralight', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', serif;
+    font-size: 40px;
+}
