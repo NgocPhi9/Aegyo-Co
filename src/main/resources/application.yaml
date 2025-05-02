@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tmdt
     username: root
-    password: 1234
+    password: 123PG
 
   jpa:
     database: mysql
@@ -20,3 +20,5 @@ spring:
       client:
         registration:
           google:
+            client-id: ${OAUTH_CLIENT_ID}
+            client-secret: ${OAUTH_CLIENT_SECRET}

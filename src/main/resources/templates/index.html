@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <div th:replace="~{header :: header}"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
 
     <div id="main">
+      <div th:replace="~{fragments/news :: news}"></div>
       <!-- Hiện thông báo khi thêm vào giỏ -->
       <div id="toast-container"></div>
 
@@ -24,6 +25,9 @@
           </a>
         </div>
       </div>
+
+      <div th:replace="~{fragments/artists-section :: artists-section}"></div>
+
     </div>
     <script src="/js/cart.js"></script>
   </body>
