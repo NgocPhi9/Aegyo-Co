@@ -20,5 +20,3 @@ spring:
       client:
         registration:
           google:
-            client-id: id
-            client-secret: secret
