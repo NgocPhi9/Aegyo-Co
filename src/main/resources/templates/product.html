@@ -1,13 +1,11 @@
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
     <link rel="stylesheet" href="/css/cart-style.css" />
     <link rel="stylesheet" href="/css/product-style.css" />
   </head>
   <body>
-    <div th:replace="~{header :: header}"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
     <div id="main">
       <div id="toast-container"></div>
 
