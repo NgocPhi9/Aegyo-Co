@@ -1,16 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/header.css" />
-    <!-- Add after other CSS links -->
-    <link rel="stylesheet" href="/css/responsive.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <title>Aegyo & Co.</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head}">
   </head>
   <body>
-    <header >
+    <header th:fragment="header">
       <nav class="header-navigation">
         <div class="header-part">
           <div class="header-logo">

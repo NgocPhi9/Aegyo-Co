@@ -27,24 +27,29 @@ body {
   width: 60%;
   line-height: 30px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 50px 40px;
+  justify-items: center;
 }
 
 .product-image {
   width: 100%;
-  height: 250px;
+  min-height: 250px;
   border-radius: 10px 10px 0 0;
 }
 
 .card {
-  flex: 0 0 250px;
-  min-width: 250px;
+  max-width: 250px;
   text-align: center;
   border: 1px solid black;
   border-radius: 10px;
   font-weight: bold;
   color: white;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  opacity: 1;
 }
 
 .card:hover {
@@ -66,7 +71,7 @@ body {
 
 .add-to-cart {
   position: absolute;
-  left: 0px;
+  left: 0;
   border: none;
   background-color: transparent;
   opacity: 0;
