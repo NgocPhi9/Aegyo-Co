@@ -1,3 +1,29 @@
+const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+function formatCurrencyVND(amount) {
+  return amount.toLocaleString('vi-VN') + ' ₫';
+}
+
+//update số lượng ở header-cart
+function updateCartCount() {
+  $.ajax({
+    url: '/4Moos/private/cart/quantity',
+    type: 'GET',
+    success: function (quantity) {
+      const badge = $('.cart-quantity');
+      if (quantity > 0) {
+        badge.text(quantity).removeClass('hidden');
+      } else {
+        badge.addClass('hidden');
+      }
+    },
+    error: function (error) {
+      alert("Không thể lấy thông tin giỏ hàng.");
+    }
+  })
+}
+
 function increaseQty(btn) {
   let quantityInput = btn.previousElementSibling;
   let quantity = parseInt(quantityInput.value);
@@ -10,18 +36,46 @@ function decreaseQty(btn) {
 
   if (quantity > 1) {
     quantityInput.value = quantity - 1;
-  } else {
-    let cartItem = btn.closest(".item");
-    cartItem.remove();
   }
 }
 
 function changeQty(input) {
   let quantity = parseInt(input.value);
 
-  if (isNaN(quantity) || quantity <= 0) {
+  if (isNaN(quantity) || quantity <= 0 || quantity > 10) {
     input.value = 1;
   }
+}
+
+function getCheckedIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('checkedId');
+}
+
+function buyNow(button) {
+  const idProduct = button.getAttribute("data-id");
+  const qtyInput = document.querySelector(".quantity");
+  const quantity = qtyInput ? parseInt(qtyInput.value) : 1;
+
+  fetch('/4Moos/cart/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      [header]: token // thêm header CSRF
+    },
+    body: JSON.stringify({
+      idProduct: idProduct,
+      quantity: quantity
+    })
+  })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/4Moos/cart?checkedId=${idProduct}`;
+          updateCartCount();
+        } else {
+          showToast("Thêm vào giỏ hàng thất bại!");
+        }
+      });
 }
 
 function addToCart(event) {
@@ -29,22 +83,77 @@ function addToCart(event) {
   event.stopPropagation(); // Ngăn không cho sự kiện lan ra thẻ <a>
 
   const button = event.currentTarget;
-  const id = button.getAttribute("data-id");
+  const idProduct = button.getAttribute("data-id");
 
   const qtyInput = document.querySelector(".quantity");
   const quantity = qtyInput ? parseInt(qtyInput.value) : 1;
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  fetch('/4Moos/cart/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      [header]: token // thêm header CSRF
+    },
+    body: JSON.stringify({
+      idProduct: idProduct,
+      quantity: quantity
+    })
+  })
+      .then(response => {
+        if (response.ok) {
+          showToast("Thêm vào giỏ hàng thành công!");
+          updateCartCount();
+        } else {
+          showToast("Thêm vào giỏ hàng thất bại!");
+        }
+      });
+}
 
-  const existingItem = cart.find((item) => item.id === id);
-  if (existingItem) {
-    existingItem.quantity += quantity;
-  } else {
-    cart.push({ id: id, quantity: quantity });
-  }
+function updateCart(element) {
+  const input = element.parentNode.querySelector('input');
+  const quantity = parseInt(input.value);
+  const checkbox = element.closest('.item').querySelector('.product-checkbox');
+  const idProduct = checkbox.getAttribute('data-id');
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  showToast("Đã thêm sản phẩm vào giỏ hàng!");
+  fetch('/4Moos/cart/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      [header]: token // thêm header CSRF
+    },
+    body: JSON.stringify({ idProduct: idProduct, quantity: quantity })
+  })
+      .then(response => {
+        if (response.ok) {
+          updateCartCount();
+          updateTotal();
+        } else {
+          alert("Không thể thêm");
+        }
+      })
+      .catch(() => alert("Có lỗi xảy ra khi thêm sản phẩm."));
+}
+
+function removeItem(button) {
+  const checkbox = button.closest('.item').querySelector('.product-checkbox');
+  const idProduct = checkbox.getAttribute("data-id");
+
+  fetch(`/4Moos/cart/remove?idProduct=${idProduct}`, {
+    method: 'POST',
+    headers: {
+      [header]: token
+    }
+  })
+      .then(response => {
+        if (response.ok) {
+          button.closest('.item').remove();
+          updateCartCount();
+          updateTotal();
+        } else {
+          alert("Không thể xóa");
+        }
+      })
+      .catch(() => alert("Có lỗi xảy ra khi xóa sản phẩm."));
 }
 
 function showToast(message) {
@@ -59,3 +168,50 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 500);
   }, 1500);
 }
+
+function updateTotal() {
+  let totalAmount = 0;
+
+  document.querySelectorAll('.item').forEach(item => {
+    const checkbox = item.querySelector('.product-checkbox');
+    const unitPrice = parseFloat(checkbox.dataset.price);
+    const quantity = parseInt(item.querySelector('.quantity').value);
+
+    const totalPrice = unitPrice * quantity;
+
+    checkbox.closest('.item').querySelector('.total-price').textContent = formatCurrencyVND(totalPrice);
+
+    if (checkbox.checked) {
+      totalAmount += totalPrice;
+    }
+  });
+  document.getElementById('total-amount').innerText = formatCurrencyVND(totalAmount);
+}
+
+function prepareOrder() {
+  const selected = [];
+  document.querySelectorAll('.product-checkbox:checked').forEach(cb => {
+    const id = cb.getAttribute('data-id');
+    const quantityInput = cb.closest('.item').querySelector('.quantity');
+    const quantity = quantityInput ? parseInt(quantityInput.value) : 0;
+
+    if (id && quantity > 0) {
+      selected.push({ idProduct: id, quantity: quantity });
+    }
+  });
+
+  if (selected.length === 0) {
+    showToast("Hãy chọn sản phẩm!");
+    return;
+  }
+  console.log("here")
+  document.getElementById('formItemsJson').value = JSON.stringify(selected);
+  document.querySelector('.checkout-form').submit();
+}
+
+const checkedFromURL = getCheckedIdFromURL();
+if (checkedFromURL) {
+  const checkbox = document.querySelector(`.product-checkbox[data-id="${checkedFromURL}"]`);
+  if (checkbox) checkbox.checked = true;
+}
+window.addEventListener("DOMContentLoaded", updateTotal);

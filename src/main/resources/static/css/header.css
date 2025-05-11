@@ -164,3 +164,27 @@ a {
   display: table;
   clear: both;
 }
+
+.header-cart {
+  position: relative;
+}
+
+.cart-quantity{
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff7eb3;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none ;
+}

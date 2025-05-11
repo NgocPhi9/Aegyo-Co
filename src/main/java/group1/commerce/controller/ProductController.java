@@ -33,13 +33,4 @@ public class ProductController {
         return "product";
     }
 
-    @GetMapping("/cart")
-    public String cart(Model model) {
-        return "cart";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 }

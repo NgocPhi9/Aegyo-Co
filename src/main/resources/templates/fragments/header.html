@@ -47,6 +47,7 @@
               <a href="../index.html">Lightsticks</a>
             </div>
             <div class="header-nav-item"><a href="../index.html">MD</a></div>
+            <div class="header-nav-item"><a href="/4Moos/order">Order</a></div>
           </div>
         </div>
         <div class="header-part">
@@ -55,17 +56,15 @@
           </div>
           <div class="header-profile">
             <a href="/login">
-              <img
-                src="https://www.svgrepo.com/show/502899/user.svg"
-                alt="Profile Picture"
-            /></a>
+              <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
+              <th:block th:if="${user != null}"><p th:text="${user.userName}"></p></th:block>
+            </a>
           </div>
           <div class="header-cart">
             <a href="/4Moos/cart">
-              <img
-                src="https://www.svgrepo.com/show/505322/cart-2.svg"
-                alt="Cart Picture"
-            /></a>
+              <img src="https://www.svgrepo.com/show/505322/cart-2.svg" alt="Cart Picture"/>
+              <span class="cart-quantity" th:text="${cartQuantity}" th:classappend="${cartQuantity == 0} ? ' hidden' : ''"></span>
+            </a>
           </div>
         </div>
       </nav>

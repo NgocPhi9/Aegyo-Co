@@ -18,7 +18,8 @@ public class Product {
     private String idProduct;
     private String productName;
     private int price;
-    private int originalPrice;
+    private int cogs;
+    private int view = 0;
     private String description;
     private int soldQuantity;
     private int availableQuantity;
