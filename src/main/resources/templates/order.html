@@ -1,11 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <link rel="stylesheet" href="/css/cart-style.css" />
+    <link rel="stylesheet" href="/css/order-style.css" />
   </head>
   <body>
-    <a href="index.html"> Link</a>
+  <div th:replace="~{fragments/header :: header}"></div>
+
+    <div id="main">
+      <h1 class="cart-title">Đơn hàng của bạn</h1>
+
+      <div class="cart-container">
+        <div class="list-items">
+          <div class="item">
+            <a href="product.html" class="product-item">
+              <img class="cart-image" src="/images/snsd.jpg" />
+              <h3>Product</h3>
+            </a>
+            <div class="control-item">
+              <h3>Quantity</h3>
+              <h3>Price</h3>
+              <button class="btn review-btn">Đánh giá</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-form">
+          <h3>Thành tiền</h3>
+          <p>Họ và tên</p>
+          <p>Số điện thoại</p>
+          <p>Địa chỉ</p>
+          <p>Phương thức thanh toán</p>
+        </div>
+
+        <div id="overlay"></div>
+        <div class="rating-container">
+          <h2>Đánh giá sản phẩm</h2>
+          <a href="product.html" class="product-item">
+            <img class="cart-image" src="/images/snsd.jpg" />
+            <h3>Product</h3>
+          </a>
+          <form id="ratingForm">
+            <div class="stars">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label for="star5">★</label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4">★</label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3">★</label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2">★</label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1">★</label>
+            </div>
+            <textarea
+              class="text-box"
+              name="comment"
+              rows="4"
+              placeholder="Viết đánh giá..."
+              maxlength="1000"
+            ></textarea>
+            <button class="btn" type="submit">Gửi đánh giá</button>
+          </form>
+          <div id="alert"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/order.js"></script>
   </body>
 </html>

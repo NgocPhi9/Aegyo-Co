@@ -12,42 +12,59 @@
 
       <div class="cart-container">
         <div class="list-items">
-          <div class="item">
-            <a href="product.html" class="product-item">
-              <img class="cart-image" src="/images/snsd.jpg" alt="Ảnh giỏ hàng"/>
-              <h3>Product</h3>
+          <div class="item" th:each="item : ${cart}"
+               th:classappend="${item.product.availableQuantity <= 0} ? ' out-stock'">
+            <label class="custom-checkbox">
+              <input type="checkbox" class="product-checkbox"
+                     th:data-id="${item.product.idProduct}"
+                     th:data-price="${item.product.getPrice()}"
+                     th:disabled="${item.product.availableQuantity <= 0}"
+                     onchange="updateTotal()" />
+              <span></span>
+            </label>
+            <a th:href="@{/4Moos/product/{id}(id=${item.product.idProduct})}" class="product-item">
+              <img class="cart-image"
+                   th:src="@{/images/{image}(image=${item.product.imageLink})}" alt="Ảnh sản phẩm"/>
+              <h3 th:text="${item.product.productName}">Tên sản phẩm</h3>
             </a>
             <div class="control-item">
               <div class="quantity-btn">
-                <button onclick="decreaseQty(this)">-</button>
-                <input type="number" class="quantity" value="1" onchange="changeQty(this)"/>
-                <button onclick="increaseQty(this)">+</button>
+                <button onclick="decreaseQty(this); updateCart(this)"
+                        th:disabled="${item.product.availableQuantity <= 0}">-</button>
+                <input type="number" class="quantity" th:value="${item.quantity}"
+                       th:disabled="${item.product.availableQuantity <= 0}"
+                       onchange="changeQty(this); updateCart(this)"/>
+                <button onclick="increaseQty(this); updateCart(this)"
+                        th:disabled="${item.product.availableQuantity <= 0}">+</button>
               </div>
-              <h3>Price</h3>
+              <h3 class="total-price">Giá</h3>
               <button class="remove-btn" onclick="removeItem(this)">X</button>
             </div>
+            <span class="out-stock-label" th:if="${item.product.availableQuantity <= 0}">HẾT HÀNG</span>
           </div>
 
-          <a class="go-back" href="index.html">Tiếp tục mua sắm</a>
+          <a class="go-back" href="/4Moos">Tiếp tục mua sắm</a>
         </div>
-        <div class="checkout-form">
-          <h3>Thành tiền</h3>
-          <label for="name">Họ và tên:</label>
-          <input type="text" id="name" name="name" />
-          <label for="phone">Số điện thoại:</label>
-          <input type="text" id="phone" name="phone" />
-          <label for="address">Địa chỉ:</label>
-          <textarea id="address" class="text-box" name="address" rows="4" maxlength="100"></textarea>
-          <label>Phương thức thanh toán:</label>
-          <div class="payment-methods">
-            <input type="radio" name="payment" value="cod" checked /> Thanh toán khi nhận hàng (COD)<br />
-            <input type="radio" name="payment" value="visa" /> Thẻ VISA<br />
-            <input type="radio" name="payment" value="bank" /> Chuyển khoản ngân hàng
+
+        <form class="checkout-form" action="/4Moos/checkout" method="post">
+          <input type="hidden" name="itemsJson" id="formItemsJson" />
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <div class="total-container">
+            <h3 class="label">Thành tiền:</h3>
+            <h3 id="total-amount"></h3>
           </div>
-          <button class="btn">ĐẶT HÀNG</button>
-        </div>
+          <th:block th:if="${user != null}">
+            <button class="btn" onclick="prepareOrder()">MUA HÀNG</button>
+          </th:block>
+          <th:block th:if="${user == null}">
+            <h5 class="login-remind">Vui lòng <a href="/login">ĐĂNG NHẬP</a> để đặt hàng!</h5>
+          </th:block>
+        </form>
       </div>
     </div>
     <script src="/js/cart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>
+<!--              0 chữ số thập phân, cách hàng nghìn bằng ".", cách thập phân bằng ","-->
+<!--              th:text="${#numbers.formatDecimal(item.totalPrice, 1, 'POINT', 0, 'COMMA')} + ' ₫'"-->

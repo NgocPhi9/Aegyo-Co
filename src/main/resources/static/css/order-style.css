@@ -1,0 +1,81 @@
+.review-btn {
+  width: fit-content;
+}
+
+.rating-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  z-index: 9999;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 30%;
+  min-width: 300px;
+  user-select: none;
+  text-align: center;
+}
+
+/* Nền mờ */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.rating-container .product-item {
+  background-color: whitesmoke;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  font-size: 2em;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+  color: gold;
+}
+
+#alert {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.thanks-container {
+  margin-top: 100px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.thanks-container img {
+  margin: 50px 0;
+  width: 300px;
+  height: 300px;
+}
+
+.thanks-container a {
+  color: black;
+}

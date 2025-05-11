@@ -47,7 +47,8 @@
           </div>
           <button class="btn add-btn" th:data-id="${product.idProduct}"
                   onclick="addToCart(event)">Thêm vào giỏ hàng</button>
-          <button class="btn">Mua ngay</button>
+          <button class="btn" th:data-id="${product.idProduct}"
+                  onclick="buyNow(this)">Mua ngay</button>
         </div>
       </div>
       <div class="review-container">
@@ -74,5 +75,6 @@
     </div>
     <script src="/js/cart.js"></script>
     <script src="/js/review.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>

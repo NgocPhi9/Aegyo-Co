@@ -2,6 +2,7 @@ package group1.commerce.service;
 
 import group1.commerce.entity.Product;
 import group1.commerce.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class ProductService {
     }
 
     public Product getProductById(String id) {
-        return productRepository.findProductsByIdProduct(id);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
     }
 
     public List<Product> getProducts() {

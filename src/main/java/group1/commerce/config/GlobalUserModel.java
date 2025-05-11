@@ -22,9 +22,12 @@ public class GlobalUserModel {
         this.userService = userService;
     }
 
-    @ModelAttribute("user")
-    public UserDTO currentUser(@AuthenticationPrincipal OAuth2User oauth2User,
-                                  Authentication authentication) {
+    public UserDTO resolveUser(Authentication authentication, OAuth2User oauth2User) {
+        // Trường hợp người dùng đăng nhập bằng tài khoản hệ thống (UserDetails)
+//        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
+//            return new UserDTO(userDetails.getId(), userDetails.getUsername());
+//        }
+
         if (authentication == null || !authentication.isAuthenticated() || oauth2User == null)
             return null;
 
@@ -49,5 +52,11 @@ public class GlobalUserModel {
         }
 
         return new UserDTO(id, name);
+    }
+
+    @ModelAttribute("user")
+    public UserDTO currentUser(@AuthenticationPrincipal OAuth2User oauth2User,
+                                  Authentication authentication) {
+        return resolveUser(authentication, oauth2User);
     }
 }
