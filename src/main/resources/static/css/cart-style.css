@@ -130,7 +130,7 @@
   border-bottom: 2px solid white;
 }
 
-input[type="text"] {
+input[type="text"], input[type="tel"] {
   width: 100%;
   padding: 8px;
   border-radius: 5px;
@@ -198,4 +198,11 @@ input[type="text"] {
   align-items: center;
   background-color: #f7e0f9;
   border-radius: 50%;
+}
+
+.quantity-alert {
+  display: none;
+  text-align: center;
+  color: red;
+  margin-bottom: 3px;
 }

@@ -27,7 +27,9 @@ function updateCartCount() {
 function increaseQty(btn) {
   let quantityInput = btn.previousElementSibling;
   let quantity = parseInt(quantityInput.value);
-  quantityInput.value = quantity + 1;
+  if (quantity < 20) {
+    quantityInput.value = quantity + 1;
+  }
 }
 
 function decreaseQty(btn) {
@@ -42,7 +44,7 @@ function decreaseQty(btn) {
 function changeQty(input) {
   let quantity = parseInt(input.value);
 
-  if (isNaN(quantity) || quantity <= 0 || quantity > 10) {
+  if (isNaN(quantity) || quantity <= 0 || quantity > 20) {
     input.value = 1;
   }
 }
@@ -114,6 +116,18 @@ function updateCart(element) {
   const quantity = parseInt(input.value);
   const checkbox = element.closest('.item').querySelector('.product-checkbox');
   const idProduct = checkbox.getAttribute('data-id');
+
+  const available = parseInt(input.dataset.available);
+  const quantityAlert = element.closest('.item').querySelector('.quantity-alert');
+  if (quantity > available) {
+    quantityAlert.textContent = `Sản phầm còn ${available}`;
+    quantityAlert.style.display = 'block';
+    checkbox.disabled = true;
+    checkbox.checked = false; // bỏ chọn nếu đã chọn
+  } else {
+    quantityAlert.style.display = 'none';
+    checkbox.disabled = false;
+  }
 
   fetch('/4Moos/cart/update', {
     method: 'POST',
@@ -188,7 +202,8 @@ function updateTotal() {
   document.getElementById('total-amount').innerText = formatCurrencyVND(totalAmount);
 }
 
-function prepareOrder() {
+function prepareOrder(event) {
+  event.preventDefault();
   const selected = [];
   document.querySelectorAll('.product-checkbox:checked').forEach(cb => {
     const id = cb.getAttribute('data-id');
@@ -204,7 +219,6 @@ function prepareOrder() {
     showToast("Hãy chọn sản phẩm!");
     return;
   }
-  console.log("here")
   document.getElementById('formItemsJson').value = JSON.stringify(selected);
   document.querySelector('.checkout-form').submit();
 }

@@ -13,7 +13,6 @@ form.addEventListener("submit", function (e) {
 
   if (!comment) {
     alertDiv.innerHTML = "Vui lòng viết bình luận!";
-    return;
   }
 });
 

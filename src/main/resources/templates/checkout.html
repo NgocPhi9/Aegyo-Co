@@ -39,7 +39,7 @@
         <label for="name">Họ và tên:</label>
         <input type="text" id="name" name="name" th:value="${dbUser.userName}" required/>
         <label for="phone">Số điện thoại:</label>
-        <input type="text" id="phone" name="phone" th:value="${dbUser.phoneNumber}" required/>
+        <input type="tel" id="phone" name="phone" pattern="0[0-9]{9}" th:value="${dbUser.phoneNumber}" required/>
         <label for="address">Địa chỉ:</label>
         <textarea id="address" class="text-box" name="address"
                   rows="4" maxlength="100" th:text="${dbUser.address}" required></textarea>

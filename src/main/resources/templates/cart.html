@@ -8,6 +8,8 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <div id="main">
+      <div id="toast-container"></div>
+      
       <h1 class="cart-title">Giỏ hàng của bạn</h1>
 
       <div class="cart-container">
@@ -28,14 +30,18 @@
               <h3 th:text="${item.product.productName}">Tên sản phẩm</h3>
             </a>
             <div class="control-item">
-              <div class="quantity-btn">
-                <button onclick="decreaseQty(this); updateCart(this)"
-                        th:disabled="${item.product.availableQuantity <= 0}">-</button>
-                <input type="number" class="quantity" th:value="${item.quantity}"
-                       th:disabled="${item.product.availableQuantity <= 0}"
-                       onchange="changeQty(this); updateCart(this)"/>
-                <button onclick="increaseQty(this); updateCart(this)"
-                        th:disabled="${item.product.availableQuantity <= 0}">+</button>
+              <div>
+                <p class="quantity-alert"></p>
+                <div class="quantity-btn">
+                  <button onclick="decreaseQty(this); updateCart(this)"
+                          th:disabled="${item.product.availableQuantity <= 0}">-</button>
+                  <input type="number" class="quantity" th:value="${item.quantity}"
+                         th:data-available="${item.product.availableQuantity}"
+                         th:disabled="${item.product.availableQuantity <= 0}"
+                         onchange="changeQty(this); updateCart(this)"/>
+                  <button onclick="increaseQty(this); updateCart(this)"
+                          th:disabled="${item.product.availableQuantity <= 0}">+</button>
+                </div>
               </div>
               <h3 class="total-price">Giá</h3>
               <button class="remove-btn" onclick="removeItem(this)">X</button>
@@ -54,7 +60,7 @@
             <h3 id="total-amount"></h3>
           </div>
           <th:block th:if="${user != null}">
-            <button class="btn" onclick="prepareOrder()">MUA HÀNG</button>
+            <button class="btn" onclick="prepareOrder(event)">MUA HÀNG</button>
           </th:block>
           <th:block th:if="${user == null}">
             <h5 class="login-remind">Vui lòng <a href="/login">ĐĂNG NHẬP</a> để đặt hàng!</h5>
