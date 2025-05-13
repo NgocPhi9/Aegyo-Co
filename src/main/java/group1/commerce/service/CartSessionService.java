@@ -1,13 +1,13 @@
 package group1.commerce.service;
 
 import group1.commerce.dto.CartDTO;
+import group1.commerce.dto.CartItemSession;
 import group1.commerce.dto.UserDTO;
 import group1.commerce.entity.CartItem;
 import group1.commerce.entity.Product;
 import group1.commerce.entity.User;
 import group1.commerce.repository.CartRepository;
 import group1.commerce.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
@@ -104,5 +104,15 @@ public class CartSessionService {
             }
         }
         session.removeAttribute("CART_SESSION_KEY");
+    }
+
+    public List<CartItemSession> getCartToDisplay(HttpSession session) {
+        List<CartDTO> cart = getCartFromSession(session);
+        return cart.stream()
+                .map(item -> {
+                    Product product = productService.getProductById(item.getIdProduct());
+                    return new CartItemSession(product, item.getQuantity());
+                })
+                .toList();
     }
 }

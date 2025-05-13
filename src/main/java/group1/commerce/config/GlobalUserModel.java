@@ -47,6 +47,7 @@ public class GlobalUserModel {
             newUser.setUserName(name);
             newUser.setIdProvided(id);
             userService.save(newUser);
+            id = newUser.getIdUser();
         } else {
             id = user.getIdUser();
         }

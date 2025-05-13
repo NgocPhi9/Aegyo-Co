@@ -3,19 +3,18 @@ package group1.commerce.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.dto.UserDTO;
-import group1.commerce.entity.OrderItem;
-import group1.commerce.entity.OrderStage;
-import group1.commerce.entity.OrderStatus;
-import group1.commerce.entity.Orders;
+import group1.commerce.entity.*;
 import group1.commerce.service.CartService;
 import group1.commerce.service.OrderService;
 import group1.commerce.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -23,12 +22,10 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
-    private final CartService cartService;
 
     public OrderController(OrderService orderService, UserService userService, CartService cartService) {
         this.orderService = orderService;
         this.userService = userService;
-        this.cartService = cartService;
     }
 
     @GetMapping("/order")
@@ -36,6 +33,32 @@ public class OrderController {
         return "order";
     }
 
+    @PostMapping("/checkout")
+    public String checkout(@ModelAttribute("user") UserDTO user,
+                           @RequestParam("itemsJson") String itemsJson,
+                           RedirectAttributes redirectAttributes) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<CartDTO> items = objectMapper.readValue(itemsJson, new TypeReference<>() {});
+
+        List<OrderItemDTO> selectedItems = orderService.getSelectedItems(items);
+        redirectAttributes.addFlashAttribute("selectedItems", selectedItems);
+
+        User dbUser = userService.getUserById(user.getIdUser());
+        redirectAttributes.addFlashAttribute("dbUser", dbUser);
+
+        int totalAmount = orderService.getTotalAmount(selectedItems);
+        redirectAttributes.addFlashAttribute("totalAmount", totalAmount);
+
+        String selectedItemsJson = objectMapper.writeValueAsString(selectedItems);
+        redirectAttributes.addFlashAttribute("selectedItemsJson", selectedItemsJson);
+
+        return "redirect:/4Moos/checkout";
+    }
+
+    @GetMapping("/checkout")
+    public String showCheckoutPage(@ModelAttribute("user") UserDTO user, Model model) {
+        return "checkout";
+    }
 
     @PostMapping("/submit-order")
     public String submitOrder(@ModelAttribute("user") UserDTO user,
@@ -48,31 +71,8 @@ public class OrderController {
         ObjectMapper objectMapper = new ObjectMapper();
         List<OrderItemDTO> selectedItems = objectMapper.readValue(selectedItemsJson, new TypeReference<>() {});
 
-        Orders order = new Orders();
-        order.setTotalAmount(totalAmount);
-        order.setShippingAddress(address);
-        order.setPaymentMethod(payment);
-        order.setCurrentStatus(OrderStage.PLACED);
-        order.setUser(userService.getUserById(user.getIdUser()));
-
-        List<OrderItem> orderItems = selectedItems.stream().map(dto -> {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setProduct(dto.getProduct());
-            orderItem.setQuantity(dto.getQuantity());
-            orderItem.setTotalPrice(dto.getTotalPrice());
-            orderItem.setOrder(order);
-            cartService.removeFromCart(user.getIdUser(), dto.getProduct().getIdProduct());
-            return orderItem;
-        }).toList();
-        order.setOrderItems(orderItems);
-
-        OrderStatus initialStatus = new OrderStatus();
-        initialStatus.setOrder(order);
-        initialStatus.setStatus(OrderStage.PLACED);
-        initialStatus.setStatusTime(LocalDateTime.now());
-
-        order.setStatusHistory(List.of(initialStatus));
-        orderService.save(order);
+        orderService.makeOrder(user.getIdUser(), totalAmount, name,
+                phone, address, payment, selectedItems);
 
         return "redirect:/4Moos/checkout-success";
     }
