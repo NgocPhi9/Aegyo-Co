@@ -1,9 +1,6 @@
 package group1.commerce.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,11 +14,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idProduct;
     private String productName;
-    private int price;
-    private int cogs;
-    private int view = 0;
+    private String category;
+    private String artist;
     private String description;
-    private int soldQuantity;
-    private int availableQuantity;
     private String imageLink;
+    private int cogs;
+
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private ProductDetails productDetails;
 }
