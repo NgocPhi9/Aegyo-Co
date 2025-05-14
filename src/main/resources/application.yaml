@@ -25,10 +25,3 @@ spring:
           facebook:
             client-id:
             client-secret:
-#          google:
-#            client-id: 151864941326-vst89hj6sjrsjavngjqfhl32dquursd9.apps.googleusercontent.com
-#            client-secret: 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
-#
-#          facebook:
-#            client-id: 24108035262138094
-#            client-secret: 9b383e4126169c0bd143a0550bb806cb
