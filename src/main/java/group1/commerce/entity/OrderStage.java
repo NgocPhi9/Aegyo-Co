@@ -4,16 +4,18 @@ import lombok.Getter;
 
 @Getter
 public enum OrderStage {
-    PLACED("Đã đặt hàng"),
-    CONFIRMED("Đã xác nhận"),
-    SHIPPED("Đang giao"),
-    DELIVERED("Đã giao"),
-    REVIEWED("Đã đánh giá"),
-    CANCELLED("Đã hủy");
+    PLACED("Chờ xác nhận", "Đặt hàng"),
+    CONFIRMED("Đã xác nhận", "Xác nhận đơn hàng"),
+    SHIPPED("Đang giao", "Giao cho đơn vị vận chuyển"),
+    DELIVERED("Đã giao", "Người mua nhận hàng"),
+    REVIEWED("Đã đánh giá", "Người mua đánh giá"),
+    CANCELLED("Đã hủy", "Hủy đơn hàng");
 
     private final String vietnameseLabel;
+    private final String vietnameseStatus;
 
-    OrderStage(String label) {
+    OrderStage(String label, String vietnameseStatus) {
         this.vietnameseLabel = label;
+        this.vietnameseStatus = vietnameseStatus;
     }
 }

@@ -163,6 +163,7 @@ function removeItem(button) {
           button.closest('.item').remove();
           updateCartCount();
           updateTotal();
+          updateBuyButtonState();
         } else {
           alert("Không thể xóa");
         }
@@ -203,7 +204,6 @@ function updateTotal() {
 }
 
 function prepareOrder(event) {
-  event.preventDefault();
   const selected = [];
   document.querySelectorAll('.product-checkbox:checked').forEach(cb => {
     const id = cb.getAttribute('data-id');
@@ -215,12 +215,19 @@ function prepareOrder(event) {
     }
   });
 
-  if (selected.length === 0) {
-    showToast("Hãy chọn sản phẩm!");
-    return;
-  }
   document.getElementById('formItemsJson').value = JSON.stringify(selected);
   document.querySelector('.checkout-form').submit();
+}
+
+function updateBuyButtonState() {
+  const selected = document.querySelectorAll('.product-checkbox:checked').length > 0;
+  const buyButton = document.getElementById('buy-btn');
+
+  if (selected) {
+    buyButton.disabled = false;
+  } else {
+    buyButton.disabled = true;
+  }
 }
 
 const checkedFromURL = getCheckedIdFromURL();
@@ -228,4 +235,10 @@ if (checkedFromURL) {
   const checkbox = document.querySelector(`.product-checkbox[data-id="${checkedFromURL}"]`);
   if (checkbox) checkbox.checked = true;
 }
-window.addEventListener("DOMContentLoaded", updateTotal);
+
+document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', updateBuyButtonState);
+});
+
+updateTotal();
+updateBuyButtonState();

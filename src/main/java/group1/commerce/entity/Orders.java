@@ -17,6 +17,8 @@ public class Orders {
     private int idOrder;
 
     private int totalAmount;
+    private String customerName;
+    private String phoneNumber;
     private String shippingAddress;
     private String paymentMethod;
 

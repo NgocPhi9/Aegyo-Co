@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <link rel="stylesheet" href="/css/cart-style.css" />
+    <link rel="stylesheet" href="/css/order-style.css" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div id="main">
+      <div class="tabs">
+        <a th:href="@{'/4Moos/orders'(keyword=${keyword}, newest=${newest})}"
+           th:classappend="${selectedStatus == null} ? 'active' : ''">
+          Tất cả
+        </a>
+        <a th:each="stage : ${statusList}"
+           th:href="@{'/4Moos/orders'(status=${stage.name()}, keyword=${keyword}, newest=${newest})}"
+           th:text="${stage.vietnameseLabel}"
+           th:classappend="${selectedStatus?.name() == stage.name()} ? 'active' : ''">
+        </a>
+        <a th:href="@{'/4Moos/orders'(status=${selectedStatus?.name()},keyword=${keyword}, newest=${!newest})}"
+           class="sort active" th:text="'Sắp xếp: ' + ${newest ? 'Mới nhất ' : 'Cũ nhất '}">
+        </a>
+
+      </div>
+
+      <form class="order-search" method="get" action="/4Moos/orders" >
+        <input type="search" name="keyword" th:value="${keyword}"
+               placeholder="Tìm theo tên sản phẩm hoặc mã đơn hàng"/>
+        <input type="hidden" name="status" th:value="${selectedStatus?.name()}"/>
+        <input type="hidden" name="newest" th:value="${newest}"/>
+        <button class="btn" type="submit">Tìm kiếm</button>
+      </form>
+
+      <div class="order-container">
+        <p th:if="${#lists.isEmpty(orders)}">Không có đơn hàng phù hợp.</p>
+
+        <div class="order" th:each="order : ${orders}">
+          <a th:href="@{/4Moos/order/{id}(id=${order.idOrder})}">
+            <div class="order-header">
+              <p class="status" th:text="${order.currentStatus.vietnameseLabel}"
+                th:classappend="${order.currentStatus.name() == 'CANCELLED' ? 'status-cancelled' :
+                  (order.currentStatus.name() == 'DELIVERED' ||
+                  order.currentStatus.name() == 'REVIEWED') ? 'status-delivered' : 'status-other'}"></p>
+<!--               đẩy đủ: dd/MM/yyyy HH:mm:ss-->
+              <p th:text="${'Ngày đặt: ' + #temporals.format(order.statusHistory[0].statusTime, 'dd/MM/yyyy')}"></p>
+            </div>
+
+            <div class="item" th:each="item : ${order.orderItems}">
+              <div class="product-item">
+                <img class="order-image" th:src="@{/images/{image}(image=${item.product.imageLink})}"
+                     alt="Ảnh sản phẩm" />
+                <p th:text="${item.product.productName}"></p>
+              </div>
+              <div class="control-item">
+                <p th:text="'Số lượng: ' + ${item.quantity}"></p>
+                <p th:text="${#numbers.formatDecimal(item.totalPrice, 1, 'POINT', 0, 'COMMA')} + ' ₫'"></p>
+              </div>
+            </div>
+
+            <h3 class="total-amount"
+              th:text="'Thành tiền: ' + ${#numbers.formatDecimal(order.totalAmount, 1, 'POINT', 0, 'COMMA')}
+                 + ' ₫'"></h3>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

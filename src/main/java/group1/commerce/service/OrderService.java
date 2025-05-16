@@ -4,6 +4,8 @@ import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.entity.*;
 import group1.commerce.repository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,6 +47,8 @@ public class OrderService {
                           List<OrderItemDTO> items) {
         Orders order = new Orders();
         order.setTotalAmount(totalAmount);
+        order.setCustomerName(name);
+        order.setPhoneNumber(phone);
         order.setShippingAddress(address);
         order.setPaymentMethod(payment);
         order.setCurrentStatus(OrderStage.PLACED);
@@ -67,6 +71,42 @@ public class OrderService {
         initialStatus.setStatusTime(LocalDateTime.now());
 
         order.setStatusHistory(List.of(initialStatus));
+        save(order);
+    }
+
+    public List<Orders> searchUserOrders(String idUser, OrderStage status, String keyword, boolean newest) {
+
+        Sort sort = Sort.by(newest ? Sort.Direction.DESC : Sort.Direction.ASC, "idOrder");
+
+        if (keyword != null && !keyword.isBlank()) {
+            return orderRepository.findByIdUserAndKeyword(idUser, keyword, sort);
+        }
+
+        if (keyword != null && !keyword.isBlank() && status != null) {
+            return orderRepository.findByIdUserAndStatusAndKeyword(idUser, status, keyword, sort);
+        }
+
+        if (status != null) {
+            return orderRepository.findByUser_IdUserAndCurrentStatus(idUser, status, sort);
+        }
+
+        return orderRepository.findByUser_IdUser(idUser, sort);
+    }
+
+    public Orders getOrder(int idOrder) {
+        return orderRepository.findById(idOrder).orElseThrow(
+                () -> new EntityNotFoundException("Order not found"));
+    }
+
+    public void cancelOrder(int idOrder) {
+        Orders order = getOrder(idOrder);
+        order.setCurrentStatus(OrderStage.CANCELLED);
+
+        OrderStatus status = new OrderStatus();
+        status.setOrder(order);
+        status.setStatus(OrderStage.CANCELLED);
+        status.setStatusTime(LocalDateTime.now());
+        order.getStatusHistory().add(status);
         save(order);
     }
 }

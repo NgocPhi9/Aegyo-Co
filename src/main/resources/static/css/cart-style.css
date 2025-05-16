@@ -206,3 +206,8 @@ input[type="text"], input[type="tel"] {
   color: red;
   margin-bottom: 3px;
 }
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

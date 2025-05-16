@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <link rel="stylesheet" href="/css/cart-style.css" />
+    <link rel="stylesheet" href="/css/order-style.css" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div id="main">
+      <h1 class="cart-title" th:text="'Đơn hàng mã #' + ${order.idOrder}"></h1>
+
+      <div class="info-container">
+        <div class="status-info">
+          <p th:each="stage : ${order.statusHistory}"
+            th:text="${stage.status.vietnameseStatus + ': ' +
+            #temporals.format(stage.statusTime, 'HH:mm:ss dd/MM/yyyy')}">
+          </p>
+        </div>
+
+        <div class="order-info">
+          <p class="status" th:text="${order.currentStatus.vietnameseLabel}"
+            th:classappend="${order.currentStatus.name() == 'CANCELLED' ? 'status-cancelled' :
+              (order.currentStatus.name() == 'DELIVERED' ||
+              order.currentStatus.name() == 'REVIEWED') ? 'status-delivered' : 'status-other'}"></p>
+          <p th:text="'Người nhận: ' + ${order.customerName}"></p>
+          <p th:text="'Số điện thoại: ' + ${order.phoneNumber}"></p>
+          <p th:text="'Địa chỉ giao hàng: ' + ${order.shippingAddress}"></p>
+          <p th:text="'Phương thức thanh toán: ' + ${order.paymentMethod}"></p>
+            <h3 class="total-amount"
+              th:text="'Thành tiền: ' + ${#numbers.formatDecimal(order.totalAmount, 1, 'POINT', 0, 'COMMA')}
+                + ' ₫'"></h3>
+          <button class="btn cancel-btn" th:disabled="${order.currentStatus.name() != 'PLACED'
+            && order.currentStatus.name() != 'CONFIRMED'}"
+            th:if="${order.currentStatus.name() != 'CANCELLED'}">Hủy đơn hàng
+          </button>
+        </div>
+      </div>
+
+      <form class="cancel-confirm" th:action="@{/4Moos/order/cancel/{id}(id=${order.idOrder})}" method="post" >
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <h3>Bạn muốn hủy đơn hàng?</h3>
+        <button class="btn cancel-btn" >Xác nhận</button>
+      </form>
+
+      <div class="cart-container">
+        <div class="list-items">
+          <div class="item" th:each="item : ${order.orderItems}">
+            <a th:href="@{/4Moos/product/{id}(id=${item.product.idProduct})}" class="product-item">
+              <img class="cart-image"
+                th:src="@{/images/{image}(image=${item.product.imageLink})}" alt="Ảnh sản phẩm"/>
+              <h3 th:text="${item.product.productName}"></h3>
+            </a>
+            <div class="control-item">
+              <h3 th:text="'Số lượng: ' + ${item.quantity}"></h3>
+              <h3 class="total-price"
+                th:text="${#numbers.formatDecimal(item.totalPrice, 1, 'POINT', 0, 'COMMA')} + ' ₫'">Giá</h3>
+              <button class="btn review-btn"
+                th:disabled="${order.currentStatus.name() != 'DELIVERED'}">Đánh giá</button>
+            </div>
+
+            <div class="rating-container">
+              <h2>Đánh giá sản phẩm</h2>
+                <a th:href="@{/4Moos/product/{id}(id=${item.product.idProduct})}" class="product-item">
+                  <img class="cart-image"
+                    th:src="@{/images/{image}(image=${item.product.imageLink})}" alt="Ảnh sản phẩm"/>
+                  <h3 th:text="${item.product.productName}"></h3>
+                </a>
+              <form id="ratingForm">
+                <div class="stars">
+                  <input type="radio" id="star5" name="rating" value="5" />
+                  <label for="star5">★</label>
+                  <input type="radio" id="star4" name="rating" value="4" />
+                  <label for="star4">★</label>
+                  <input type="radio" id="star3" name="rating" value="3" />
+                  <label for="star3">★</label>
+                  <input type="radio" id="star2" name="rating" value="2" />
+                  <label for="star2">★</label>
+                  <input type="radio" id="star1" name="rating" value="1" />
+                  <label for="star1">★</label>
+                </div>
+                <textarea class="text-box" name="comment" rows="4"
+                  placeholder="Viết đánh giá..." maxlength="1000"></textarea>
+                <button class="btn" type="submit">Gửi đánh giá</button>
+              </form>
+              <div id="alert"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="overlay"></div>
+      </div>
+    </div>
+
+    <script src="/js/order.js"></script>
+  </body>
+</html>

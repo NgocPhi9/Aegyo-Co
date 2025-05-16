@@ -2,7 +2,7 @@
   width: fit-content;
 }
 
-.rating-container {
+.rating-container, .cancel-confirm {
   display: none;
   position: fixed;
   top: 50%;
@@ -78,4 +78,155 @@
 
 .thanks-container a {
   color: black;
+}
+
+.info-container {
+  display: flex;
+  width: 70%;
+  margin: 50px auto;
+  justify-content: space-around;
+  justify-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  line-height: 2rem;
+  background: linear-gradient(
+          to bottom right,
+          rgba(167, 216, 254, 0.8),
+          rgba(199, 230, 247, 0.6),
+          rgba(247, 224, 249, 0.4)
+  );
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.status-info,
+.order-info {
+  flex: 1 1 49%;
+  padding: 20px;
+  min-width: 300px;
+}
+
+.status {
+  width: fit-content;
+  padding: 0 10px;
+  box-sizing: content-box;
+  border-radius: 10px;
+  margin-left: -10px;
+  font-weight: bolder;
+}
+
+.status-cancelled {
+  background-color: #ff5a5f;
+}
+
+.status-delivered {
+  background-color: #4ad66d;
+}
+
+.status-other {
+  background-color: #fff3b0;
+}
+
+.total-amount {
+  border-top: 2px solid #78a2cc;
+  padding-top: 5px;
+}
+
+.order-info .cancel-btn {
+  float: right;
+}
+
+.cancel-btn {
+  margin-top: 0;
+  background: #ff5a5f;
+}
+
+.cancel-btn:hover {
+  margin-top: 0;
+  background: #fc4349;
+}
+
+.tabs {
+  display: flex;
+  margin: 50px auto 20px auto;
+  width: 60%;
+  justify-content: space-around;
+  background-color: #78a2cc;
+  border-radius: 10px;
+}
+
+.tabs a {
+  padding: 10px;
+  min-width: 30px;
+  font-weight: bold;
+}
+
+.tabs a:hover,
+.active {
+  background-color: #262d4c;
+  border-radius: 10px;
+}
+
+.order-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  margin: 0 auto;
+  column-gap: 10px;
+}
+
+.order-search button, .cancel-btn {
+  width: fit-content;
+  min-width: fit-content;
+  margin-top: 0;
+}
+
+.cancel-confirm .btn {
+  margin-top: 20px;
+}
+
+.order-search input[type="search"] {
+  width: 95%;
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.order-container {
+  width: 60%;
+  margin: 20px auto;
+  user-select: none;
+}
+
+.order {
+  line-height: 2rem;
+  margin-bottom: 20px;
+  flex: 1 1;
+  background: linear-gradient(
+          to bottom right,
+          rgba(167, 216, 254, 0.8),
+          rgba(199, 230, 247, 0.6),
+          rgba(247, 224, 249, 0.4)
+  );
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.order a {
+  color: black;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-image {
+  width: 80px;
+  border-radius: 10px;
 }

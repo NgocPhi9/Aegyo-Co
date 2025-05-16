@@ -30,7 +30,7 @@ public class OrderController {
 
     @GetMapping("/order")
     public String getOrder() {
-        return "order";
+        return "orders";
     }
 
     @PostMapping("/checkout")
@@ -81,4 +81,40 @@ public class OrderController {
     public String checkoutSuccess() {
         return "checkout-success";
     }
+
+    @GetMapping("/orders")
+    public String viewOrders(@ModelAttribute("user") UserDTO user,
+            @RequestParam(required = false) OrderStage status,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Boolean newest,
+            Model model) {
+
+        if (newest == null) {
+            newest = true;
+        }
+
+        List<Orders> orders = orderService.searchUserOrders(user.getIdUser(), status, keyword, newest);
+
+        model.addAttribute("orders", orders);
+        model.addAttribute("selectedStatus", status);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("newest", newest);
+        model.addAttribute("statusList", List.of(OrderStage.values()));
+
+        return "orders";
+    }
+
+    @GetMapping("/order/{idOrder}")
+    public String viewOrderDetails(@PathVariable int idOrder, Model model) {
+        Orders order = orderService.getOrder(idOrder);
+        model.addAttribute("order", order);
+        return "order-details";
+    }
+
+    @PostMapping("/order/cancel/{idOrder}")
+    public String cancelOrder(@PathVariable int idOrder) {
+        orderService.cancelOrder(idOrder);
+        return "redirect:/4Moos/order/" + idOrder;
+    }
+
 }
