@@ -223,11 +223,10 @@ function updateBuyButtonState() {
   const selected = document.querySelectorAll('.product-checkbox:checked').length > 0;
   const buyButton = document.getElementById('buy-btn');
 
-  if (selected) {
-    buyButton.disabled = false;
-  } else {
-    buyButton.disabled = true;
+  if (!buyButton) {
+    return;
   }
+  buyButton.disabled = !selected;
 }
 
 const checkedFromURL = getCheckedIdFromURL();

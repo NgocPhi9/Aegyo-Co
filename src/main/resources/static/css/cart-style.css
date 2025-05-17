@@ -207,7 +207,7 @@ input[type="text"], input[type="tel"] {
   margin-bottom: 3px;
 }
 
-button:disabled {
+button:disabled, input[type="checkbox"]:disabled + span {
   opacity: 0.7;
   cursor: not-allowed;
 }
