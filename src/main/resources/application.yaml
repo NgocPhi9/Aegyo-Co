@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tmdt_final
+    username: root
+    password: 123PG
+
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format-sql: true
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 151864941326-vst89hj6sjrsjavngjqfhl32dquursd9.apps.googleusercontent.com
+            client-secret: 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
+          facebook:
+            client-id: ${OAUTH_CLIENT_ID}
+            client-secret: ${OAUTH_CLIENT_SECRET}

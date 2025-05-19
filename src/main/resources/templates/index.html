@@ -1,37 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <th:block th:replace="~{fragments/head :: head}"></th:block>
-  </head>
-  <body>
-    <div th:replace="~{fragments/header :: header}"></div>
+<head>
+  <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
 
-    <div id="main">
-      <div th:replace="~{fragments/news :: news}"></div>
-      <!-- Hiện thông báo khi thêm vào giỏ -->
-      <div id="toast-container"></div>
+<div id="main">
+  <div th:replace="~{fragments/news :: news}"></div>
+  <!-- Hiện thông báo khi thêm vào giỏ -->
+  <div id="toast-container"></div>
 
-      <div class="card-container">
-        <div class="card" th:each="product : ${products}">
-          <a th:href="@{/4Moos/product/{id}(id=${product.idProduct})}">
-            <div class="image-button">
-              <img class="product-image" th:src="@{/images/{image}(image=${product.imageLink})}" alt="Ảnh sản phẩm"/>
-              <button class="add-to-cart" th:data-id="${product.idProduct}" onclick="addToCart(event)">
-                <img class="icon" th:src="@{/images/add-to-cart.png}" alt="Ảnh thêm vào giỏ hàng"/></button>
-            </div>
-            <p th:text="${product.productName}"></p>
-            <p th:text="${product.price}"></p>
-          </a>
-        </div>
-      </div>
+  <div th:replace="~{fragments/featured-products :: featured-products}"></div>
+  <!--      <div th:replace="~{fragments/best-sellers :: best-sellers}"></div>-->
+  <div th:replace="~{fragments/artists-section :: artists-section}"></div>
 
-      <div th:replace="~{fragments/featured-products :: featured-products}"></div>
-<!--      <div th:replace="~{fragments/best-sellers :: best-sellers}"></div>-->
-      <div th:replace="~{fragments/artists-section :: artists-section}"></div>
-
-    </div>
-    <script src="/js/cart.js"></script>
-    <script src="/js/news.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  </body>
+</div>
+<script src="/js/cart.js"></script>
+<script src="/js/news.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
 </html>

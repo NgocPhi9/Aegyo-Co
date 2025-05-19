@@ -7,83 +7,23 @@
 <div class="featured-products" th:fragment="featured-products">
     <h2>Featured Products</h2>
     <div class="products-container">
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://kshopina.com/cdn/shop/products/L200002618____12_600x600_crop_center.jpg?v=1681266922" alt="Polo Shirt">
+        <div class="product-card card" th:each="product : ${products}">
+            <a th:href="@{/product/{id}(id=${product.idProduct})}" class="product-link">
+                <div class="image-button">
+                    <img class="product-image" th:src="@{/images/{image}(image=${product.imageLink})}" alt="Ảnh sản phẩm"/>
                 </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Polo Shirt</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
+                <div class="product-details">
+                    <h3 class="product-brand">BTOB</h3>
+                    <p th:text="${product.productName}" class="product-title"></p>
+                    <p class="product-desc">Finding perfect products</p>
+                    <p th:text="${product.price}" class="product-price"></p>
+                    <button class="add-to-cart" th:data-id="${product.idProduct}" onclick="addToCart(event)">
+                        Add to cart</button>
+                </div>
             </a>
         </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="Polo Shirt">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Polo Shirt</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="Polo Shirt">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Polo Shirt</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="Polo Shirt">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Polo Shirt</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="T-Shirt Mockup">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">T-Shirt Mockup</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="Corater">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Corater</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
-        <div class="product-card">
-            <a href="#" class="product-link">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x300" alt="Product 4">
-                </div>
-                <h3 class="product-brand">Brand Name</h3>
-                <p class="product-title">Product 4</p>
-                <p class="product-desc">Finding perfect products</p>
-                <p class="product-price">$50</p>
-            </a>
-        </div>
+
+
     </div>
 </div>
 </body>
