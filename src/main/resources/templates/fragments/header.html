@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
   <head th:replace="~{fragments/head :: head}">
   </head>
   <body>
@@ -47,7 +47,6 @@
               <a href="../index.html">Lightsticks</a>
             </div>
             <div class="header-nav-item"><a href="../index.html">MD</a></div>
-            <div class="header-nav-item"><a href="/4Moos/orders">Order</a></div>
           </div>
         </div>
         <div class="header-part">
@@ -55,11 +54,31 @@
             <input type="search" placeholder="Search..." />
           </div>
           <div class="header-profile">
-            <a href="/login">
-              <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
-              <th:block th:if="${user != null}"><p th:text="${user.userName}"></p></th:block>
-            </a>
+            <div class="profile-dropdown">
+              <!-- Profile trigger -->
+              <a href="4Moos/login" class="profile-trigger">
+                <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
+                <th:block th:if="${user != null}">
+                  <span class="username" th:text="${user.userName}"></span>
+                </th:block>
+              </a>
+
+              <!-- Dropdown menu - only show when logged in -->
+              <div class="dropdown-menu" th:if="${user != null}">
+                <ul>
+                  <li><a th:href="@{/4Moos/profile}">Profile</a></li>
+                  <li><a th:href="@{/4Moos/orders}">Orders</a></li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" th:action="@{/4Moos/logout}" method="POST" style="display: none;"></form>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
+
+
           <div class="header-cart">
             <a href="/4Moos/cart">
               <img src="https://www.svgrepo.com/show/505322/cart-2.svg" alt="Cart Picture"/>
