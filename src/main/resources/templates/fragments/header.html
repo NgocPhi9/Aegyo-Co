@@ -56,12 +56,18 @@
           <div class="header-profile">
             <div class="profile-dropdown">
               <!-- Profile trigger -->
-              <a href="4Moos/login" class="profile-trigger">
+              <!-- Not logged in: profile icon links to login page -->
+              <a th:if="${user == null}" href="/4Moos/login" class="profile-trigger">
                 <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
-                <th:block th:if="${user != null}">
-                  <span class="username" th:text="${user.userName}"></span>
-                </th:block>
+                <span>Login</span>
               </a>
+
+              <!-- Logged in: profile icon is just a trigger for dropdown -->
+              <div th:if="${user != null}" class="profile-trigger">
+                <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
+                <span class="username" th:text="${user.userName}"></span>
+              </div>
+
 
               <!-- Dropdown menu - only show when logged in -->
               <div class="dropdown-menu" th:if="${user != null}">

@@ -35,11 +35,20 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http, CustomLoginSuccessHandler customLoginSuccessHandler) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/4Moos/**").permitAll();
-                    auth.requestMatchers("/4Moos/register", "/4Moos/login").permitAll();
                     auth.requestMatchers("/css/**", "/js/**", "/images/**").permitAll();
-                    auth.requestMatchers("/registration/**", "/login/**").permitAll();
+                    auth.requestMatchers("/4Moos", "/4Moos/index", "/4Moos/login", "/4Moos/register").permitAll();
+                    auth.requestMatchers("/4Moos/product/**").permitAll();
+
+                    // IMPORTANT: Admin routes must be defined BEFORE the general /4Moos/** rule
+                    auth.requestMatchers("/4Moos/admin/**").hasAuthority("ROLE_ADMIN");
+
+                    // Protected routes requiring authentication
+                    auth.requestMatchers("/4Moos/profile", "/4Moos/orders").authenticated();
+
+                    auth.requestMatchers("/4Moos/**").permitAll();
+
                     auth.anyRequest().authenticated();
+
                 })
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/4Moos/login")
