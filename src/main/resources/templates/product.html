@@ -16,8 +16,8 @@
           <h3 th:text="${product.productName}"></h3>
 
           <div class="numbers">
-            <p>Review</p>
-            <p>View</p>
+            <p th:text="${product.averageRating} + '★'"></p>
+            <p th:text="${product.soldQuantity} + ' Sold'"></p>
           </div>
 
           <h3 th:text="${product.price}"></h3>

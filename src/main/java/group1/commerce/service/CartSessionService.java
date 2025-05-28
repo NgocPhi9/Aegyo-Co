@@ -2,10 +2,12 @@ package group1.commerce.service;
 
 import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.CartItemSession;
+import group1.commerce.dto.ProductDTO;
 import group1.commerce.dto.UserDTO;
 import group1.commerce.entity.CartItem;
 import group1.commerce.entity.Product;
 import group1.commerce.entity.User;
+import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.CartRepository;
 import group1.commerce.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartSessionService {
@@ -21,11 +24,13 @@ public class CartSessionService {
     private final ProductService productService;
     private final CartRepository cartRepository;
     private final UserService userService;
+    private final ProductMapper productMapper;
 
-    public CartSessionService(ProductService productService, CartService cartService, CartRepository cartRepository, UserRepository userRepository, UserService userService) {
+    public CartSessionService(ProductService productService, CartService cartService, CartRepository cartRepository, UserRepository userRepository, UserService userService, ProductMapper productMapper) {
         this.productService = productService;
         this.cartRepository = cartRepository;
         this.userService = userService;
+        this.productMapper = productMapper;
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +92,8 @@ public class CartSessionService {
         for (CartDTO sessionItem : cart) {
             CartItem dbItem = cartRepository.findByUser_IdUserAndProduct_IdProduct
                     (user.getIdUser(), sessionItem.getIdProduct());
-            Product product = productService.getProductById(sessionItem.getIdProduct());
+            Optional<ProductDTO> optionalProductDTO = productService.getProductById(sessionItem.getIdProduct());
+            Product product = optionalProductDTO.map(productMapper::toEntity).orElse(null);
 
             if (dbItem != null) {
                 // Nếu đã có trong DB, cộng dồn số lượng
@@ -110,8 +116,9 @@ public class CartSessionService {
         List<CartDTO> cart = getCartFromSession(session);
         return cart.stream()
                 .map(item -> {
-                    Product product = productService.getProductById(item.getIdProduct());
-                    return new CartItemSession(product, item.getQuantity());
+                    Optional<ProductDTO> optionalProductDTO = productService.getProductById(item.getIdProduct());
+                    ProductDTO productDTO = optionalProductDTO.get();
+                    return new CartItemSession(productDTO, item.getQuantity());
                 })
                 .toList();
     }

@@ -3,6 +3,7 @@ package group1.commerce.controller;
 
 import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.CartItemSession;
+import group1.commerce.dto.ProductDTO;
 import group1.commerce.dto.UserDTO;
 import group1.commerce.entity.*;
 import group1.commerce.service.CartService;
@@ -15,17 +16,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/4Moos")
 public class CartController {
     private final CartService cartService;
     private final CartSessionService cartSessionService;
+    private final ProductService productService;
 
-    public CartController(CartService cartService, CartSessionService cartSessionService, ProductService productService, UserService userService) {
+    public CartController(CartService cartService, CartSessionService cartSessionService, ProductService productService) {
         this.cartService = cartService;
         this.cartSessionService = cartSessionService;
+        this.productService = productService;
     }
 
     @GetMapping("/cart")
@@ -35,7 +40,13 @@ public class CartController {
             model.addAttribute("cart", cartToDisplay);
         } else {
             List<CartItem> cart = cartService.getCart(user.getIdUser());
-            model.addAttribute("cart", cart);
+            List<CartItemSession> cartToDisplay = new ArrayList<>();
+            for (CartItem item : cart) {
+                Optional<ProductDTO> optionalProductDTO = productService.getProductById(item.getProduct().getIdProduct());
+                ProductDTO productDTO = optionalProductDTO.get();
+                cartToDisplay.add(new CartItemSession(productDTO, item.getQuantity()));
+            }
+            model.addAttribute("cart", cartToDisplay);
         }
 
         return "cart";
