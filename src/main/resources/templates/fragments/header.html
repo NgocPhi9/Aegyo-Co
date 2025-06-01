@@ -15,38 +15,62 @@
             <div class="header-nav-item">
               <div class="dropdown">
                 <button class="dropbtn">
-                  Dropdown
-                  <i class="fa fa-caret-down"></i>
+                  Shop
                 </button>
+
                 <div class="dropdown-content">
                   <div class="row">
                     <div class="column">
-                      <h3>Solo Artists</h3>
-                      <a href="#">IU</a>
-                      <a href="#">TAEYEON</a>
-                      <a href="#">ZICO</a>
+                      <h3><a th:href="@{/4Moos/all-artists}">Shop by Artists</a></h3>
+                      <th:block th:if="${headerTopArtists != null and !headerTopArtists.isEmpty()}">
+                      <a th:each="artistName : ${headerTopArtists}"
+                         th:href="@{'/4Moos/artists/' + ${artistName} + '/1'}"
+                         th:text="${artistName}">Artist Name</a>
+                    </th:block>
+                      <th:block th:if="${headerTopArtists == null or headerTopArtists.isEmpty()}">
+                        <a th:href="@{/4Moos/all-artists}">View All Artists</a> </th:block>
+                      <h3><a th:href="@{/4Moos/shop-all/1}">Shop All</a></h3>
                     </div>
+
                     <div class="column">
-                      <h3>Groups</h3>
-                      <a href="#">Link 1</a>
-                      <a href="#">Link 2</a>
-                      <a href="#">Link 3</a>
+                      <h3>Shop Bestsellers</h3>
+                      <a th:href="@{/4Moos/best-sellers}">View All Bestsellers</a>
+                      <th:block th:if="${headerBestsellers != null and !headerBestsellers.isEmpty()}">
+                        <a th:each="product : ${headerBestsellers}"
+                           th:href="@{'/4Moos/product/' + ${product.idProduct}}"
+                           th:text="${product.productName}">Product Name</a>
+                      </th:block>
+                      <th:block th:if="${headerBestsellers == null or headerBestsellers.isEmpty()}">
+                        <p style="font-size:0.9em; color:#777;">Trending items coming soon!</p>
+                      </th:block>
                     </div>
+
                     <div class="column">
-                      <h3>Category 3</h3>
-                      <a href="#">Link 1</a>
-                      <a href="#">Link 2</a>
-                      <a href="#">Link 3</a>
+                      <h3>Shop New Releases</h3>
+                      <a th:href="@{/4Moos/new-releases}">View All New Releases</a>
+                      <th:block th:if="${headerNewReleases != null and !headerNewReleases.isEmpty()}">
+                        <a th:each="product : ${headerNewReleases}"
+                           th:href="@{'/4Moos/product/' + ${product.idProduct}}"
+                           th:text="${product.productName}">Product Name</a>
+                      </th:block>
+                      <th:block th:if="${headerNewReleases == null or headerNewReleases.isEmpty()}">
+                        <p style="font-size:0.9em; color:#777;">Fresh arrivals loading!</p>
+                      </th:block>
                     </div>
+
                   </div>
                 </div>
               </div>
             </div>
-            <div class="header-nav-item"><a href="../index.html">Albums</a></div>
             <div class="header-nav-item">
-              <a href="../index.html">Lightsticks</a>
+              <div class="title"><a href="/4Moos/albums/1">Albums</a></div>
             </div>
-            <div class="header-nav-item"><a href="../index.html">MD</a></div>
+            <div class="header-nav-item">
+              <div class="title"><a href="/4Moos/lightsticks/1">Lightsticks</a></div>
+            </div>
+            <div class="header-nav-item">
+              <div class="title"><a href="/4Moos/md/1">MD</a></div>
+            </div>
           </div>
         </div>
         <div class="header-part">

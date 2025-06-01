@@ -14,6 +14,11 @@
 
         <div class="product-info">
           <h3 th:text="${product.productName}"></h3>
+          <h3 class="product-brand">
+            <a th:href="@{'/4Moos/artists/' + ${product.artist} + '/1'}" th:text="${product.artist}">
+              Artist Name
+            </a>
+          </h3>
 
           <div class="numbers">
             <p th:text="${product.averageRating} + '★'"></p>

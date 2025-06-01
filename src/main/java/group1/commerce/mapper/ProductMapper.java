@@ -23,6 +23,7 @@ public class ProductMapper {
         productDTO.setDescription(product.getDescription());
         productDTO.setImageLink(product.getImageLink());
         productDTO.setCogs(product.getCogs());
+        productDTO.setCreatedAt(product.getCreatedAt());
         // Set ProductDetails fields if available
         ProductDetails productDetails = product.getProductDetails();
         if (productDetails != null) {

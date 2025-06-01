@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Styling for the letter separating each artist group (e.g., A, B, #) */
+        .artist-group-letter {
+            font-size: 2rem;    /* Large and clear */
+            font-weight: 700;   /* Bold */
+            color: #374151;     /* Dark gray (Tailwind gray-700) */
+            margin-top: 2.5rem; /* Space above the letter */
+            margin-bottom: 1.5rem;/* Space below the letter, before the artist grid */
+            padding-bottom: 0.75rem; /* Space within the bottom border */
+            border-bottom: 2px solid #e5e7eb; /* Light gray border (Tailwind gray-200) */
+        }
+
+        /* Styling for each artist item link in the grid */
+        .artist-item-link {
+            display: block; /* Makes the whole area clickable */
+            background-color: #ffffff; /* White background for each artist card */
+            color: #374151;     /* Dark gray text (Tailwind gray-700) */
+            padding: 1rem;      /* Padding inside the artist card */
+            border-radius: 0.5rem; /* Rounded corners (Tailwind rounded-lg) */
+            /* Subtle shadow for a "card" effect */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+            text-decoration: none; /* Remove underline from links */
+            text-align: center;
+            font-weight: 500;   /* Medium font weight (Tailwind font-medium) */
+            /* Smooth transitions for hover effects */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease-out, color 0.2s ease-out;
+        }
+
+        .artist-item-link:hover {
+            transform: translateY(-3px) scale(1.03); /* Slight lift and scale effect on hover */
+            /* More pronounced shadow on hover */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+            background-color: #262d4c;
+            color: #ffffff;     /* White text on hover */
+        }
+
+        /* Message for when no artists are found */
+        .no-artists-message {
+            text-align: center;
+            padding-top: 2.5rem; /* py-10 */
+            padding-bottom: 2.5rem;
+            font-size: 1.25rem; /* text-xl */
+            color: #4b5563;     /* Tailwind gray-600 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50"> <div th:replace="~{fragments/header :: header}"></div>
+
+<main id="main" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="section-title">
+        <h1>All Artists</h1>
+    </div>
+
+    <div th:if="${groupedArtists != null and !groupedArtists.isEmpty()}">
+        <th:block th:each="groupEntry : ${groupedArtists}">
+            <div class="artist-group mb-10"> <h3 class="artist-group-letter" th:text="${groupEntry.key}">Group Letter</h3>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+                    <div class="artist-item" th:each="artistName : ${groupEntry.value}">
+                        <a class="artist-item-link"
+                           th:href="@{'/4Moos/artists/' + ${artistName} + '/1'}"
+                           th:text="${artistName}">
+                            Artist Name
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+    <div th:if="${groupedArtists == null or groupedArtists.isEmpty()}" class="no-artists-message">
+        <p>No artists found at the moment. Please check back later!</p>
+    </div>
+</main>
+
+
+<script th:src="@{/js/cart.js}"></script>
+<script th:src="@{/js/news.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

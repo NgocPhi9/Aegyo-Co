@@ -3,6 +3,8 @@ package group1.commerce.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.dto.UserDTO;
@@ -37,7 +39,11 @@ public class OrderController {
     public String checkout(@ModelAttribute("user") UserDTO user,
                            @RequestParam("itemsJson") String itemsJson,
                            RedirectAttributes redirectAttributes) throws JsonProcessingException {
+        // Configure ObjectMapper locally
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         List<CartDTO> items = objectMapper.readValue(itemsJson, new TypeReference<>() {});
 
         List<OrderItemDTO> selectedItems = orderService.getSelectedItems(items);
@@ -68,7 +74,10 @@ public class OrderController {
                               @RequestParam("address") String address,
                               @RequestParam("payment") String payment,
                               @RequestParam("selectedItemsJson") String selectedItemsJson) throws JsonProcessingException {
+        // Configure ObjectMapper locally
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         List<OrderItemDTO> selectedItems = objectMapper.readValue(selectedItemsJson, new TypeReference<>() {});
 
         orderService.makeOrder(user.getIdUser(), totalAmount, name,

@@ -5,8 +5,13 @@ import group1.commerce.entity.Product;
 import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,16 +26,58 @@ public class ProductService {
     }
 
     // Get all products as DTOs
-    public List<ProductDTO> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return productMapper.toDTOList(products);
+    public Page<ProductDTO> getAllProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page -1, size);
+        Page<Product> products = productRepository.findAll(pageable);
+        return products.map(productMapper::toDTO);
     }
+
 
     // Get product by ID as DTO
     public Optional<ProductDTO> getProductById(String idProduct) {
         return productRepository.findById(idProduct).map(productMapper::toDTO);
     }
 
+    public List<ProductDTO> getBestSellers(int limit) {
+        Pageable topN = PageRequest.of(0, limit);
+        List<Product> bestSellers = productRepository.findTopBestsellers(topN);
+        return productMapper.toDTOList(bestSellers);
+    }
+
+    public List<ProductDTO> getFeaturedProducts(int limit) {
+        Pageable topN = PageRequest.of(0, limit);
+        List<Product> featuredProducts = productRepository.findFeaturedProducts(topN);
+        return productMapper.toDTOList(featuredProducts);
+    }
+
+    public List<ProductDTO> getNewReleases(int limit) {
+        Pageable topN = PageRequest.of(0, limit);
+        List<Product> featuredProducts = productRepository.findNewProducts(topN);
+        return productMapper.toDTOList(featuredProducts);
+    }
+
+    public Page<ProductDTO> getProductsByCategory(String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page -1, size);
+        Page<Product> products = productRepository.findProductsByCategory(category, pageable);
+        return products.map(productMapper::toDTO);
+    }
+
+    public Page<ProductDTO> getProductsByArtist(String artist, int page, int size) {
+        Pageable pageable = PageRequest.of(page -1, size);
+        Page<Product> products = productRepository.findProductsByArtist(artist, pageable);
+        return products.map(productMapper::toDTO);
+    }
+
+    public List<String> getTopSellingArtistNames(int limit) {
+        Pageable topN = PageRequest.of(0, limit);
+        List<String> topSellingArtists = productRepository.findTopSellingArtistNames(topN);
+        return topSellingArtists;
+    }
+
+    public List<String> getAllDistinctArtistNames() {
+        List<String> names = productRepository.findAllArtist();
+        return names != null ? names : Collections.emptyList(); // Ensure non-null
+    }
 
     // Save a product from DTO
     public ProductDTO saveProduct(ProductDTO productDTO) {
