@@ -12,6 +12,7 @@
     </div>
     <!-- Hiện thông báo khi thêm vào giỏ -->
     <div id="toast-container"></div>
+    <div th:replace="~{fragments/_sortOptions :: sortControls(currentSortOption=${currentSortOption}, sortOptions=${sortOptions}, baseUrl=${baseUrl}, otherParams=null)}"></div>
 
     <div th:replace="~{fragments/featured-products :: featured-products}"></div>
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="sortControls(currentSortOption, sortOptions, baseUrl, otherParams)"
+     class="sorting-controls" style="margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 5px;">
+    <form th:action="${baseUrl} + '/1'" method="get" id="sortForm" style="display: flex; flex-wrap: wrap; justify-content: right; gap: 10px;">
+        <th:block th:if="${otherParams != null}">
+            <input type="hidden" th:each="param : ${otherParams}" th:name="${param.key}" th:value="${param.value}" />
+        </th:block>
+
+        <label for="sortSelect" style="font-weight: bold; align-self: center;">Sort By:</label>
+        <select name="sort" id="sortSelect" onchange="document.getElementById('sortForm').submit()" style="padding: 8px; border-radius: 4px; border: 1px solid #ced4da;">
+            <th:block th:each="option : ${sortOptions}">
+                <option th:value="${option.name()}"
+                        th:text="${option.displayName}"
+                        th:selected="${currentSortOption == option.name()}"></option>
+            </th:block>
+        </select>
+    </form>
+</div>
+</body>
+</html>

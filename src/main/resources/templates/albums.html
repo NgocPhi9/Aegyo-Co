@@ -12,10 +12,11 @@
   </div>
   <!-- Hiện thông báo khi thêm vào giỏ -->
   <div id="toast-container"></div>
+  <div th:replace="~{fragments/_sortOptions :: sortControls(currentSortOption=${currentSortOption}, sortOptions=${sortOptions}, baseUrl=${baseUrl}, otherParams=null)}"></div>
 
   <div th:replace="~{fragments/featured-products :: featured-products}"></div>
 
-  <div th:replace="~{fragments/pagination :: paginationLinks(baseUrl='/4Moos/albums', currentPage=${currentPage}, totalPages=${totalPages}, totalItems=${totalItems})}"></div>
+  <div th:replace="~{fragments/pagination :: paginationLinks(baseUrl=${baseUrl}, currentPage=${currentPage}, totalPages=${totalPages}, totalItems=${totalItems})}"></div>
 
 </div>
 

@@ -2,6 +2,7 @@ package group1.commerce.service;
 
 import group1.commerce.dto.ProductDTO;
 import group1.commerce.entity.Product;
+import group1.commerce.entity.ProductSortOption;
 import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,8 +27,9 @@ public class ProductService {
     }
 
     // Get all products as DTOs
-    public Page<ProductDTO> getAllProducts(int page, int size) {
-        Pageable pageable = PageRequest.of(page -1, size);
+    public Page<ProductDTO> getAllProducts(int page, int size, String sortOptionString) {
+        ProductSortOption sortOption = ProductSortOption.fromString(sortOptionString, ProductSortOption.BEST_SELLING);
+        Pageable pageable = PageRequest.of(page -1, size, sortOption.getSort());
         Page<Product> products = productRepository.findAll(pageable);
         return products.map(productMapper::toDTO);
     }
@@ -56,17 +58,20 @@ public class ProductService {
         return productMapper.toDTOList(featuredProducts);
     }
 
-    public Page<ProductDTO> getProductsByCategory(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page -1, size);
+    public Page<ProductDTO> getProductsByCategory(String category, int page, int size, String sortOptionString) {
+        ProductSortOption sortOption = ProductSortOption.fromString(sortOptionString, ProductSortOption.BEST_SELLING);
+        Pageable pageable = PageRequest.of(page -1, size, sortOption.getSort());
         Page<Product> products = productRepository.findProductsByCategory(category, pageable);
         return products.map(productMapper::toDTO);
     }
 
-    public Page<ProductDTO> getProductsByArtist(String artist, int page, int size) {
-        Pageable pageable = PageRequest.of(page -1, size);
+    public Page<ProductDTO> getProductsByArtist(String artist, int page, int size, String sortOptionString) {
+        ProductSortOption sortOption = ProductSortOption.fromString(sortOptionString, ProductSortOption.BEST_SELLING);
+        Pageable pageable = PageRequest.of(page -1, size, sortOption.getSort());
         Page<Product> products = productRepository.findProductsByArtist(artist, pageable);
         return products.map(productMapper::toDTO);
     }
+
 
     public List<String> getTopSellingArtistNames(int limit) {
         Pageable topN = PageRequest.of(0, limit);

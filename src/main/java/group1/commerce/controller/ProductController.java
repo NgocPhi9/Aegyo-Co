@@ -2,6 +2,7 @@ package group1.commerce.controller;
 
 import group1.commerce.dto.ProductDTO;
 import group1.commerce.entity.Product;
+import group1.commerce.entity.ProductSortOption;
 import group1.commerce.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,13 +24,18 @@ public class ProductController {
         this.productService = productService;
     }
 
-    private void addPaginationAttributesToModel(Model model, Page<ProductDTO> productsPage, String listAttributeName, int currentViewPage) {
+    private void addPaginationAttributesToModel(Model model, Page<ProductDTO> productsPage, String listAttributeName, int currentViewPage, String currentSortOption, String baseUrl) {
         List<ProductDTO> contentList = productsPage.getContent();
 
         model.addAttribute("currentPage", currentViewPage);
         model.addAttribute("totalPages", productsPage.getTotalPages());
         model.addAttribute("totalItems", productsPage.getTotalElements());
         model.addAttribute(listAttributeName, contentList);
+
+        // For the sort fragment
+        model.addAttribute("currentSortOption", currentSortOption);
+        model.addAttribute("sortOptions", Arrays.asList(ProductSortOption.values()));
+        model.addAttribute("baseUrl", baseUrl);
 
     }
 
@@ -41,10 +48,11 @@ public class ProductController {
 
     // Get all products
     @GetMapping("/shop-all/{page}")
-    public String getAllProducts(@PathVariable (value = "page") int page, Model model) {
+    public String getAllProducts(@PathVariable (value = "page") int page,
+                                 @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString, Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getAllProducts(page, pageSize);
-        addPaginationAttributesToModel(model, productsPage, "products", page);
+        Page<ProductDTO> productsPage = productService.getAllProducts(page, pageSize, sortOptionString);
+        addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/shop-all");
         return "shop-all";
     }
 
@@ -70,39 +78,42 @@ public class ProductController {
     }
 
     @GetMapping("/albums/{page}")
-    public String getAlbums(@PathVariable (value = "page") int page, Model model) {
+    public String getAlbums(@PathVariable (value = "page") int page,
+                            @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString, Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getProductsByCategory("ALBUMS", page, pageSize);
-        addPaginationAttributesToModel(model, productsPage, "products", page);
+        Page<ProductDTO> productsPage = productService.getProductsByCategory("ALBUMS", page, pageSize, sortOptionString);
+        addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/albums");
         return "albums";
     }
 
     @GetMapping("/lightsticks/{page}")
-    public String getLighsticks(@PathVariable (value = "page") int page, Model model) {
+    public String getLighsticks(@PathVariable (value = "page") int page,
+                            @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString, Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getProductsByCategory("LIGHTSTICK", page, pageSize);
-        addPaginationAttributesToModel(model, productsPage, "products", page);
+        Page<ProductDTO> productsPage = productService.getProductsByCategory("LIGHTSTICK", page, pageSize, sortOptionString);
+        addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/lightsticks");
         return "lightsticks";
     }
 
     @GetMapping("/md/{page}")
-    public String getMD(@PathVariable (value = "page") int page, Model model) {
+    public String getMD(@PathVariable (value = "page") int page,
+                                @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString, Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getProductsByCategory("MD", page, pageSize);
-        addPaginationAttributesToModel(model, productsPage, "products", page);
+        Page<ProductDTO> productsPage = productService.getProductsByCategory("MD", page, pageSize, sortOptionString);
+        addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/md");
         return "md";
     }
 
     @GetMapping("/artists/{artist}/{page}")
-    public String getArtists(@PathVariable (value = "artist") String artist, @PathVariable (value = "page") int page, Model model) {
+    public String getArtists(@PathVariable (value = "artist") String artist,
+                             @PathVariable (value = "page") int page,
+                             @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString,Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getProductsByArtist(artist, page, pageSize);
-        addPaginationAttributesToModel(model, productsPage, "products", page);
+        Page<ProductDTO> productsPage = productService.getProductsByArtist(artist, page, pageSize, sortOptionString);
+        addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/artists" + artist);
         // Add artistName to the model for the title and pagination links
         model.addAttribute("artistName", artist);
 
-        // The baseUrl for pagination links needs to include the artist's name
-        model.addAttribute("baseUrl", "/4Moos/artists/" + artist);
         return "artist";
     }
 
