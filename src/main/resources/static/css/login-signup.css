@@ -1,0 +1,163 @@
+a{
+    text-decoration: none;
+}
+
+.login-signup-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+.divider hr {
+    flex-grow: 1;
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+}
+.divider span {
+    padding: 0 10px;
+    color: #6c757d;
+}
+.field-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Add these styles to login-signup.css */
+
+/* More specific selectors to override the general .btn class */
+.login-signup-container .btn,
+.login-container .btn,
+.register-container .btn,
+.social-login .btn {
+    background: #0d6efd;  /* Bootstrap primary color */
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.login-signup-container .btn:hover,
+.login-container .btn:hover,
+.register-container .btn:hover {
+    background: #0b5ed7;  /* Slightly darker shade for hover */
+}
+
+/* Preserve the social button styles */
+.social-login .social-btn-facebook {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+
+.social-login .social-btn-google {
+    background-color: #db4437 !important;
+    color: white !important;
+}
+
+.social-login .social-btn-facebook:hover {
+    background-color: #324b80 !important;
+}
+
+.social-login .social-btn-google:hover {
+    background-color: #c23321 !important;
+}
+
+/* Profile Dropdown Styling */
+.header-profile {
+    position: relative;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.username {
+    font-weight: 500;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 180px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* Arrow on top of dropdown */
+.dropdown-menu:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    transform: rotate(45deg);
+    border-left: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu li.divider {
+    border-top: 1px solid #eee;
+    margin: 5px 0;
+}
+
+/* Show dropdown on hover */
+.profile-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

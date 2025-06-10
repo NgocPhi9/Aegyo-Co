@@ -1,12 +1,13 @@
 package group1.commerce.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
 @AllArgsConstructor
@@ -17,11 +18,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idProduct;
     private String productName;
-    private int price;
     private int cogs;
-    private int view = 0;
     private String description;
-    private int soldQuantity;
-    private int availableQuantity;
     private String imageLink;
+    private String category;
+    private String artist;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ProductDetails productDetails;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reviews> reviews;
+
 }

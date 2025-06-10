@@ -24,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query("SELECT p FROM Product p ORDER BY p.createdAt DESC")
     List<Product> findNewProducts(Pageable pageable);
 
-    Page<Product> findProductsByCategory(String category, Pageable pageable);
+    Page<Product> findProductsByCategory(String category, Pageable pageable, String sortField);
 
     @Override
     Page<Product> findAll(Pageable pageable);

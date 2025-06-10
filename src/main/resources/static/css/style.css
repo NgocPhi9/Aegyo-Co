@@ -32,19 +32,12 @@ body {
   justify-items: center;
 }
 
-.product-image {
-  width: 100%;
-  min-height: 250px;
-  border-radius: 10px 10px 0 0;
-}
-
 .card {
-  max-width: 250px;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 10px;
-  font-weight: bold;
-  color: white;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -52,48 +45,44 @@ body {
   opacity: 1;
 }
 
-.card:nth-child(even) {
-  background-color: rgb(188, 127, 180);
-}
-
-.card:nth-child(odd) {
-  background-color: rgb(79, 168, 236);
-}
-
-.image-button {
-  position: relative;
-}
-
 .add-to-cart {
-  position: absolute;
-  left: 0;
+  align-self: center;
+  width: 240px;
+  height: 40px;
+  background-color: #81c0f1;
   border: none;
-  background-color: transparent;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  transition: opacity 0.15s ease;
-  border-radius: 50%;
+  font-size: 16px;
+  position: absolute; /* Positioned relative to .product-card */
+  bottom: 0;    /* Distance from the bottom of the card */
+  left: 50%;          /* Center horizontally */
+  transform: translateX(-50%); /* Fine-tune horizontal centering */
+  visibility: hidden; /* Hidden by default, good for accessibility */
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition */
+  z-index: 10;
 }
 
 .card:hover .add-to-cart {
   opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-10px);
 }
 
 .add-to-cart:hover {
-  background-color: gainsboro;
+  background-color: #262d4c;
+  color: white;
   cursor: pointer;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
 }
 
 #toast-container {
   position: fixed;
-  bottom: 20px;
+  top: 40px;
   right: 20px;
   display: flex;
   flex-direction: column-reverse;
+  z-index: 9999;  /* Add this line */
 }
 
 .toast {
@@ -132,4 +121,10 @@ body {
   outline: none;
   resize: none;
   background-color: whitesmoke;
+}
+
+.section-title{
+  text-align: center;
+  font-size: 25px;
+  margin: 40px ;
 }

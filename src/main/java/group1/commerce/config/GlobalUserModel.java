@@ -1,7 +1,9 @@
 package group1.commerce.config;
 
 import group1.commerce.dto.UserDTO;
+import group1.commerce.entity.Role;
 import group1.commerce.entity.User;
+import group1.commerce.security.CustomUserDetails;
 import group1.commerce.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,11 +24,7 @@ public class GlobalUserModel {
         this.userService = userService;
     }
 
-    public UserDTO resolveUser(Authentication authentication, OAuth2User oauth2User) {
-        // Trường hợp người dùng đăng nhập bằng tài khoản hệ thống (UserDetails)
-//        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
-//            return new UserDTO(userDetails.getId(), userDetails.getUsername());
-//        }
+    public UserDTO resolveOAuth2User(Authentication authentication, OAuth2User oauth2User) {
 
         if (authentication == null || !authentication.isAuthenticated() || oauth2User == null)
             return null;
@@ -40,24 +38,59 @@ public class GlobalUserModel {
             default -> null;
         };
 
-        String name = (String) attr.getOrDefault("name", attr.get("login"));//Sửa lại theo đúng định dạng
+        String name = (String) attr.getOrDefault("name", attr.get("login"));
+        String email = (String) attr.get("email");
+
         User user = userService.findUserByIdProvided(id);
         if (user == null){
             User newUser = new User();
             newUser.setUserName(name);
             newUser.setIdProvided(id);
+            newUser.setEmail(email);
+            newUser.setRole(Role.CUSTOMER);
             userService.save(newUser);
             id = newUser.getIdUser();
         } else {
             id = user.getIdUser();
         }
 
-        return new UserDTO(id, name);
+        return new UserDTO(id, name, email, null, null, Role.CUSTOMER);
+    }
+
+    public UserDTO resolveFormLoginUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated() ||
+                !(authentication.getPrincipal() instanceof CustomUserDetails)) {
+            return null;
+        }
+
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        User user = userService.findUserByEmail(customUserDetails.getUsername());
+        if (user != null) {
+            return new UserDTO(user.getIdUser(), user.getUserName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getRole());
+        }
+
+        return null;
+
+
     }
 
     @ModelAttribute("user")
-    public UserDTO currentUser(@AuthenticationPrincipal OAuth2User oauth2User,
-                                  Authentication authentication) {
-        return resolveUser(authentication, oauth2User);
+    public UserDTO currentUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+
+        // Handle OAuth2 authentication
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            return resolveOAuth2User(authentication, (OAuth2User) authentication.getPrincipal());
+        }
+
+        // Handle form-based authentication
+        if (authentication.getPrincipal() instanceof CustomUserDetails) {
+            return resolveFormLoginUser(authentication);
+        }
+
+        return null;
     }
+
 }

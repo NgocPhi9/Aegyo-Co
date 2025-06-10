@@ -42,10 +42,15 @@
 
 .header-nav-item {
   font-size: 16px;
-  text-transform: uppercase;
-  font-weight: bold;
   display: inline-block;
 }
+
+.header-nav-item .title, .dropbtn{
+  text-transform: uppercase;
+  font-weight: bold !important;
+}
+
+
 
 .header-searchbar input {
   background-color: #333;
@@ -105,7 +110,6 @@ a {
   margin: 0; /* Important for vertical align on mobile phones */
 }
 
-/* Add a red background color to navbar links on hover */
 .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: #262d4c;
