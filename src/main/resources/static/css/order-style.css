@@ -163,7 +163,8 @@
 
 .tabs a:hover,
 .active {
-  background-color: #262d4c;
+  text-decoration: white underline solid 2px;
+  text-underline-offset: 5px;
   border-radius: 10px;
 }
 

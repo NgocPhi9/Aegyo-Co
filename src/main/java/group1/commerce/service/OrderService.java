@@ -65,16 +65,16 @@ public class OrderService {
 
         List<OrderItem> orderItems = items.stream().map(dto -> {
             OrderItem orderItem = new OrderItem();
-            Optional<ProductDTO> productDTO = productService.getProductById(dto.getProduct().getIdProduct());
-            Product productEntity = productDTO.map(productMapper::toEntity).orElse(null);
-            if (productEntity == null) {
-                throw new EntityNotFoundException("Product entity not found with ID: " + dto.getProduct().getIdProduct());
-            }
-            orderItem.setProduct(productEntity);
+            orderItem.setIdProduct(dto.getProduct().getIdProduct());
+            orderItem.setProductName(dto.getProduct().getProductName());
+            orderItem.setProductImageLink(dto.getProduct().getImageLink());
             orderItem.setQuantity(dto.getQuantity());
             orderItem.setTotalPrice(dto.getTotalPrice());
             orderItem.setOrder(order);
+            // Xóa khỏi giỏ hàng
             cartService.removeFromCart(idUser, dto.getProduct().getIdProduct());
+            // Update số lượng sản phẩm
+            productService.sellProduct(dto.getProduct().getIdProduct(), dto.getQuantity());
             return orderItem;
         }).toList();
         order.setOrderItems(orderItems);

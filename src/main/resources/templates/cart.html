@@ -19,7 +19,7 @@
             <label class="custom-checkbox">
               <input type="checkbox" class="product-checkbox"
                      th:data-id="${item.product.idProduct}"
-                     th:data-price="${item.product.getPrice()}"
+                     th:data-price="${item.product.price}"
                      th:disabled="${item.product.availableQuantity <= 0}"
                      onchange="updateTotal()" />
               <span></span>

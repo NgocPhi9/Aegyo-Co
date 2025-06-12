@@ -47,10 +47,10 @@
       <div class="cart-container">
         <div class="list-items">
           <div class="item" th:each="item : ${order.orderItems}">
-            <a th:href="@{/4Moos/product/{id}(id=${item.product.idProduct})}" class="product-item">
+            <a th:href="@{/4Moos/product/{id}(id=${item.idProduct})}" class="product-item">
               <img class="cart-image"
-                th:src="@{/images/{image}(image=${item.product.imageLink})}" alt="Ảnh sản phẩm"/>
-              <h3 th:text="${item.product.productName}"></h3>
+                th:src="@{/images/{image}(image=${item.productImageLink})}" alt="Ảnh sản phẩm"/>
+              <h3 th:text="${item.productName}"></h3>
             </a>
             <div class="control-item">
               <h3 th:text="'Số lượng: ' + ${item.quantity}"></h3>
@@ -62,10 +62,10 @@
 
             <div class="rating-container">
               <h2>Đánh giá sản phẩm</h2>
-                <a th:href="@{/4Moos/product/{id}(id=${item.product.idProduct})}" class="product-item">
+                <a th:href="@{/4Moos/product/{id}(id=${item.idProduct})}" class="product-item">
                   <img class="cart-image"
-                    th:src="@{/images/{image}(image=${item.product.imageLink})}" alt="Ảnh sản phẩm"/>
-                  <h3 th:text="${item.product.productName}"></h3>
+                    th:src="@{/images/{image}(image=${item.productImageLink})}" alt="Ảnh sản phẩm"/>
+                  <h3 th:text="${item.productName}"></h3>
                 </a>
               <form id="ratingForm">
                 <div class="stars">

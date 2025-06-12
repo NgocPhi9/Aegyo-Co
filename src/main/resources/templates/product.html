@@ -9,7 +9,7 @@
     <div id="main">
       <div id="toast-container"></div>
 
-      <div class="product-container" >
+      <div class="product-container" th:if="${product != null}">
         <img class="product-img" th:src="@{/images/{image}(image=${product.imageLink})}" />
 
         <div class="product-info">
@@ -56,7 +56,7 @@
                   onclick="buyNow(this)">Mua ngay</button>
         </div>
       </div>
-      <div class="review-container">
+      <div class="review-container" th:if="${product != null}">
         <div class="tabs">
           <div class="tab active-review" id="reviewTab" onclick="showTab('review')">
             Đánh giá
@@ -76,6 +76,11 @@
             <button class="btn comment-btn">Gửi bình luận</button>
           </div>
         </div>
+      </div>
+      <div class="not-found">
+        <h1>Sản phẩm không tồn tại hoặc đã ngừng bán!</h1>
+        <img src="/images/not-found.png" alt="Not found picture"/>
+        <h4><a href="/4Moos">Tiếp tục mua hàng</a></h4>
       </div>
     </div>
     <script src="/js/cart.js"></script>

@@ -85,10 +85,9 @@ public class ProductService {
     }
 
     // Save a product from DTO
-    public ProductDTO saveProduct(ProductDTO productDTO) {
+    public void saveProduct(ProductDTO productDTO) {
         Product product = productMapper.toEntity(productDTO);
-        Product savedProduct = productRepository.save(product);
-        return productMapper.toDTO(savedProduct);
+        productRepository.save(product);
     }
     public ProductDTO updateProduct(String id, ProductDTO productDTO) {
         Product product = productMapper.toEntity(productDTO);
@@ -99,6 +98,21 @@ public class ProductService {
     // Delete a product
     public void deleteProduct(String idProduct) {
         productRepository.deleteById(idProduct);
+    }
+
+    public void viewProduct(String idProduct) {
+        ProductDTO productDTO = getProductById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found "));
+        productDTO.setView(productDTO.getView() + 1);
+        saveProduct(productDTO);
+    }
+
+    public void sellProduct(String idProduct, int quantity) {
+        ProductDTO productDTO = getProductById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found "));
+        productDTO.setSoldQuantity(productDTO.getSoldQuantity() + quantity);
+        productDTO.setAvailableQuantity(productDTO.getAvailableQuantity() - quantity);
+        saveProduct(productDTO);
     }
 
 }

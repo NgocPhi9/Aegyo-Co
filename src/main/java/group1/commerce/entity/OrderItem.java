@@ -14,12 +14,12 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOrderItem;
 
+    private String idProduct;
+    private String productName;
+    private String productImageLink;
+
     private int quantity;
     private int totalPrice;
-
-    @ManyToOne()
-    @JoinColumn(name = "idProduct", nullable = false)
-    private Product product;
 
     @ManyToOne()
     @JoinColumn(name = "idOrder", nullable = false)

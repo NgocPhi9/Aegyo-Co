@@ -143,3 +143,19 @@
 .comment-btn:hover {
   background: rgb(247, 222, 249);
 }
+
+.not-found {
+  margin-top: 100px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.not-found img {
+  margin: 50px 0;
+  width: 300px;
+  height: 300px;
+}
+
+.not-found a {
+  color: black;
+}

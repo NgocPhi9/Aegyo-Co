@@ -49,9 +49,9 @@
 
             <div class="item" th:each="item : ${order.orderItems}">
               <div class="product-item">
-                <img class="order-image" th:src="@{/images/{image}(image=${item.product.imageLink})}"
+                <img class="order-image" th:src="@{/images/{image}(image=${item.productImageLink})}"
                      alt="Ảnh sản phẩm" />
-                <p th:text="${item.product.productName}"></p>
+                <p th:text="${item.productName}"></p>
               </div>
               <div class="control-item">
                 <p th:text="'Số lượng: ' + ${item.quantity}"></p>

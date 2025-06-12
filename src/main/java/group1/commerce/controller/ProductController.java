@@ -177,6 +177,7 @@ public class ProductController {
     public String getProductById(@PathVariable String id, Model model) {
         Optional<ProductDTO> product = productService.getProductById(id);
         product.map(productDTO -> model.addAttribute("product", productDTO));
+        productService.viewProduct(id);
         return "product";
     }
 

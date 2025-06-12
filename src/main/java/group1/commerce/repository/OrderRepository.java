@@ -25,10 +25,10 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
     @Query("""
         SELECT DISTINCT o FROM Orders o 
         LEFT JOIN o.orderItems i 
-        LEFT JOIN i.product p 
+        LEFT JOIN i.idProduct p 
         WHERE o.user.idUser = :idUser 
         AND (
-            LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
+            LOWER(i.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
             OR STR(o.idOrder) LIKE CONCAT('%', :keyword, '%')
         )
     """)
@@ -38,11 +38,11 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
     @Query("""
     SELECT DISTINCT o FROM Orders o 
     LEFT JOIN o.orderItems i 
-    LEFT JOIN i.product p 
+    LEFT JOIN i.idProduct p 
     WHERE o.user.idUser = :idUser 
     AND o.currentStatus = :status
     AND (
-        LOWER(p.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
+        LOWER(i.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
         OR STR(o.idOrder) LIKE CONCAT('%', :keyword, '%')
     )
 """)
