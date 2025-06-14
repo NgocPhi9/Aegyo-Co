@@ -54,7 +54,7 @@ public class GlobalUserModel {
             id = user.getIdUser();
         }
 
-        return new UserDTO(id, name, email, null, null, Role.CUSTOMER);
+        return new UserDTO(id, name, email, null, null, user.isPurchaseRestricted(), user.getRole());
     }
 
     public UserDTO resolveFormLoginUser(Authentication authentication) {
@@ -66,7 +66,8 @@ public class GlobalUserModel {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = userService.findUserByEmail(customUserDetails.getUsername());
         if (user != null) {
-            return new UserDTO(user.getIdUser(), user.getUserName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getRole());
+            return new UserDTO(user.getIdUser(), user.getUserName(), user.getEmail(),
+                    user.getPhoneNumber(), user.getAddress(), user.isPurchaseRestricted(), user.getRole());
         }
 
         return null;

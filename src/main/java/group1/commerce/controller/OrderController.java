@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -114,15 +115,24 @@ public class OrderController {
     }
 
     @GetMapping("/order/{idOrder}")
-    public String viewOrderDetails(@PathVariable int idOrder, Model model) {
+    public String viewOrderDetails(@ModelAttribute("user") UserDTO user,
+                                   @PathVariable int idOrder, Model model) {
         Orders order = orderService.getOrder(idOrder);
         model.addAttribute("order", order);
+
+        List<CancelReason> reasons = Arrays.stream(CancelReason.values())
+                .filter(reason -> reason.getAllowedRoles().contains(user.getRole()))
+                .toList();
+        model.addAttribute("reasonList", reasons);
+
         return "order-details";
     }
 
     @PostMapping("/order/cancel/{idOrder}")
-    public String cancelOrder(@PathVariable int idOrder) {
-        orderService.cancelOrder(idOrder);
+    public String cancelOrder(@ModelAttribute("user") UserDTO user, @PathVariable int idOrder,
+                              @RequestParam OrderStage currentStatus, @RequestParam CancelReason reason) {
+        orderService.checkCancelation(user.getIdUser(), currentStatus, reason);
+        orderService.cancelOrder(idOrder, user.getRole(), reason);
         return "redirect:/4Moos/order/" + idOrder;
     }
 

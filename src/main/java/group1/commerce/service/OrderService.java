@@ -3,6 +3,7 @@ package group1.commerce.service;
 import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.dto.ProductDTO;
+import group1.commerce.dto.UserDTO;
 import group1.commerce.entity.*;
 import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.OrderRepository;
@@ -20,14 +21,12 @@ public class OrderService {
     private final ProductService productService;
     private final UserService userService;
     private final CartService cartService;
-    private final ProductMapper productMapper;
 
     public OrderService(OrderRepository orderRepository, ProductService productService, UserService userService, CartService cartService, ProductMapper productMapper) {
         this.orderRepository = orderRepository;
         this.productService = productService;
         this.userService = userService;
         this.cartService = cartService;
-        this.productMapper = productMapper;
     }
 
     public void save(Orders order) {
@@ -112,9 +111,11 @@ public class OrderService {
                 () -> new EntityNotFoundException("Order not found"));
     }
 
-    public void cancelOrder(int idOrder) {
+    public void cancelOrder(int idOrder, Role role, CancelReason reason) {
         Orders order = getOrder(idOrder);
         order.setCurrentStatus(OrderStage.CANCELLED);
+        order.setCancelledBy(role);
+        order.setCancelReason(reason);
 
         OrderStatus status = new OrderStatus();
         status.setOrder(order);
@@ -122,5 +123,15 @@ public class OrderService {
         status.setStatusTime(LocalDateTime.now());
         order.getStatusHistory().add(status);
         save(order);
+    }
+
+    public void checkCancelation(String idUser, OrderStage currentStatus, CancelReason reason) {
+        User user = userService.getUserById(idUser);
+        Role role =user.getRole();
+        if (role == Role.CUSTOMER && currentStatus == OrderStage.CONFIRMED ||
+                role == Role.ADMIN && reason == CancelReason.CUSTOMER_REJECTED) {
+            user.setBadCancelCount(user.getBadCancelCount() + 1);
+            userService.save(user);
+        }
     }
 }

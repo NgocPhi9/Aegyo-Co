@@ -25,7 +25,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
     @Query("""
         SELECT DISTINCT o FROM Orders o 
         LEFT JOIN o.orderItems i 
-        LEFT JOIN i.idProduct p 
         WHERE o.user.idUser = :idUser 
         AND (
             LOWER(i.productName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
@@ -38,7 +37,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
     @Query("""
     SELECT DISTINCT o FROM Orders o 
     LEFT JOIN o.orderItems i 
-    LEFT JOIN i.idProduct p 
     WHERE o.user.idUser = :idUser 
     AND o.currentStatus = :status
     AND (

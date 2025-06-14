@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
   <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
     <link rel="stylesheet" href="/css/cart-style.css" />
@@ -17,6 +17,10 @@
             th:text="${stage.status.vietnameseStatus + ': ' +
             #temporals.format(stage.statusTime, 'HH:mm:ss dd/MM/yyyy')}">
           </p>
+          <th:block th:if="${order.currentStatus.name() == 'CANCELLED'}">
+            <p th:text="'Người hủy đơn: ' + ${order.cancelledBy == 'ADMIN' ? 'Người bán' : 'Khách hàng'}"></p>
+            <p th:text="'́Lý do: ' + ${order.cancelReason.label}"></p>
+          </th:block>
         </div>
 
         <div class="order-info">
@@ -40,7 +44,13 @@
 
       <form class="cancel-confirm" th:action="@{/4Moos/order/cancel/{id}(id=${order.idOrder})}" method="post" >
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" th:name="currentStatus" th:value="${order.currentStatus.name()}">
         <h3>Bạn muốn hủy đơn hàng?</h3>
+        <h4>Lý do</h4>
+        <label th:each="reason : ${reasonList}" class="reason-button">
+          <input type="radio" name="reason" th:value="${reason.name()}" required />
+          <span th:text="${reason.label}"></span>
+        </label>
         <button class="btn cancel-btn" >Xác nhận</button>
       </form>
 
