@@ -81,7 +81,7 @@ public class ProductController {
     public String getAlbums(@PathVariable (value = "page") int page,
                             @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString, Model model) {
         int pageSize = 16;
-        Page<ProductDTO> productsPage = productService.getProductsByCategory("ALBUMS", page, pageSize, sortOptionString);
+        Page<ProductDTO> productsPage = productService.getProductsByCategory("ALBUM", page, pageSize, sortOptionString);
         addPaginationAttributesToModel(model, productsPage, "products", page, sortOptionString, "/4Moos/albums");
         return "albums";
     }
@@ -171,7 +171,6 @@ public class ProductController {
     }
 
 
-
     // Get product by id
     @GetMapping("/product/{id}")
     public String getProductById(@PathVariable String id, Model model) {
@@ -180,21 +179,4 @@ public class ProductController {
         productService.viewProduct(id);
         return "product";
     }
-
-    // Save a product from DTO
-    public ProductDTO saveProduct(ProductDTO productDTO) {
-        productService.saveProduct(productDTO);
-        return productDTO;
-    }
-
-    public ProductDTO updateProduct(String id, ProductDTO productDTO) {
-        productService.updateProduct(id, productDTO);
-        return productDTO;
-    }
-
-    // Delete a product
-    public void deleteProduct(String idProduct) {
-        productService.deleteProduct(idProduct);
-    }
-
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
+    Product findProductByIdProduct(String id);
     List<Product> findProductsByProductName(String productName);
     @Query("SELECT p FROM Product p ORDER BY p.productDetails.soldQuantity DESC")
     List<Product> findTopBestsellers(Pageable pageable);
@@ -24,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query("SELECT p FROM Product p ORDER BY p.createdAt DESC")
     List<Product> findNewProducts(Pageable pageable);
 
-    Page<Product> findProductsByCategory(String category, Pageable pageable, String sortField);
+    Page<Product> findProductsByCategory(String category, Pageable pageable);
 
     @Override
     Page<Product> findAll(Pageable pageable);

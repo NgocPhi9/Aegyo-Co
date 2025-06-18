@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head :: head}">
+</head>
+<body>
+<header th:fragment="header-admin">
+    <nav class="header-navigation">
+        <div class="header-part">
+            <div class="header-logo">
+                <a href="/4Moos/admin">Aegyo and Co.</a>
+            </div>
+        </div>
+        <div class="header-part">
+            <div class="header-nav">
+                <div class="header-nav-item">
+                    <div class="title"><a href="/4Moos/admin/orders">Orders</a></div>
+                </div>
+                <div class="header-nav-item">
+                    <div class="title"><a href="/4Moos/admin/products/1">Products</a></div>
+                </div>
+                <div class="header-nav-item">
+                    <div class="title"><a href="/4Moos/admin/users">Users</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-part">
+            <div class="header-profile">
+                <div class="profile-dropdown">
+                    <!-- Profile trigger -->
+                    <!-- Not logged in: profile icon links to login page -->
+                    <a th:if="${user == null}" href="/4Moos/login" class="profile-trigger">
+                        <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
+                        <span>Login</span>
+                    </a>
+
+                    <!-- Logged in: profile icon is just a trigger for dropdown -->
+                    <div th:if="${user != null}" class="profile-trigger">
+                        <img src="https://www.svgrepo.com/show/502899/user.svg" alt="Profile Picture"/>
+                        <span class="username" th:text="${user.userName}"></span>
+                    </div>
+
+
+                    <!-- Dropdown menu - only show when logged in -->
+                    <div class="dropdown-menu" th:if="${user != null}">
+                        <ul>
+                            <li><a th:href="@{/4Moos/profile}">Profile</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" th:action="@{/4Moos/logout}" method="POST" style="display: none;"></form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</header>
+</body>
+</html>

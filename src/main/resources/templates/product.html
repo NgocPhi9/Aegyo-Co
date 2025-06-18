@@ -40,10 +40,7 @@
           </div>
           <h3>Mô tả</h3>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-            iusto obcaecati, aperiam reiciendis repellat pariatur modi
-            aspernatur ex atque fugit quae possimus illo vel. Aliquam sed ex
-            nemo placeat eligendi.
+            <span th:text="${product.description}"></span>
           </p>
           <div class="quantity-btn">
             <button onclick="decreaseQty(this)">-</button>
@@ -76,11 +73,6 @@
             <button class="btn comment-btn">Gửi bình luận</button>
           </div>
         </div>
-      </div>
-      <div class="not-found">
-        <h1>Sản phẩm không tồn tại hoặc đã ngừng bán!</h1>
-        <img src="/images/not-found.png" alt="Not found picture"/>
-        <h4><a href="/4Moos">Tiếp tục mua hàng</a></h4>
       </div>
     </div>
     <script src="/js/cart.js"></script>

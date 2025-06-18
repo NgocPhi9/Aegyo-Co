@@ -1,64 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:replace="~{fragments/head :: head}"></th:block>
-    <title>Admin Dashboard - E-Commerce</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        .admin-dashboard {
-            padding: 30px;
-        }
-        .admin-card {
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: white;
-        }
-    </style>
 </head>
-<body class="bg-light">
-<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<div th:replace="~{fragments/header-admin :: header-admin}"></div>
 
-<div class="container admin-dashboard">
-    <div class="row mb-4">
-        <div class="col">
-            <h1>Admin Dashboard</h1>
-            <p th:text="${message}" class="lead">Welcome message</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="admin-card">
-                <h3><i class="fas fa-shopping-bag me-2"></i>Products</h3>
-                <p>Manage your store products</p>
-                <a href="#" class="btn btn-primary">Manage Products</a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="admin-card">
-                <h3><i class="fas fa-users me-2"></i>Users</h3>
-                <p>Manage customer accounts</p>
-                <a href="#" class="btn btn-primary">Manage Users</a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="admin-card">
-                <h3><i class="fas fa-chart-line me-2"></i>Orders</h3>
-                <p>View and process orders</p>
-                <a href="#" class="btn btn-primary">Manage Orders</a>
-            </div>
-        </div>
+<div id="main">
+    <div class="section-title">
+        <h2>Dashboard</h2>
     </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/news.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

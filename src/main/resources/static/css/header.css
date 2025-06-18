@@ -33,6 +33,11 @@
   margin-right: 40px;
 }
 
+.header-logo a{
+  color: white;
+  text-decoration: none;
+}
+
 .header-nav {
   display: flex;
   gap: 30px;

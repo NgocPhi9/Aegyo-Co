@@ -77,6 +77,7 @@ public class ProductMapper {
             return null;
         }
         Product product = new Product();
+        // ... set other fields like productName, category, etc. ...
         product.setProductName(dto.getProductName());
         product.setCategory(dto.getCategory());
         product.setArtist(dto.getArtist());
@@ -86,11 +87,13 @@ public class ProductMapper {
 
         ProductDetails details = new ProductDetails();
         details.setPrice(dto.getPrice());
+        // CORRECTED: Set the available quantity from the DTO
         details.setAvailableQuantity(dto.getAvailableQuantity());
 
         // Set default values for new products
         details.setView(0);
         details.setSoldQuantity(0);
+        // REMOVED: details.setAvailableQuantity(0); // This was the bug
         details.setAverageRating(BigDecimal.ZERO);
         details.setRatingCount(0);
 
