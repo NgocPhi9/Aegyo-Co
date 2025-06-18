@@ -26,6 +26,10 @@ public class User {
     private String email;
     @Column(name = "address")
     private String address;
+    @Column(name = "badCancelCount")
+    private int badCancelCount = 0;
+    @Column(name = "purchaseRestricted")
+    private boolean purchaseRestricted;
 
     @Enumerated(EnumType.STRING)
     private Role role;

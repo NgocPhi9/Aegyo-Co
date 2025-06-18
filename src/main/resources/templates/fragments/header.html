@@ -117,6 +117,10 @@
           </div>
         </div>
       </nav>
+      <div class="account-alert" th:if="${user != null && user.purchaseRestricted}">
+        <p><span>Tài khoản của bạn bị hạn chế mua hàng do hủy đơn quá nhiều!</span>
+          <span>Vui lòng liên hệ với quản trị viên để giải đáp thắc mắc!</span></p>
+      </div>
     </header>
   </body>
 </html>

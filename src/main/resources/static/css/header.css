@@ -197,3 +197,16 @@ a {
 .hidden {
   display: none ;
 }
+
+.account-alert {
+  color: red;
+  font-weight: bold;
+  font-size: smaller;
+  text-align: center;
+  padding: 5px;
+  background-color: #f8f9fa;
+}
+
+.account-alert span {
+  white-space: nowrap;
+}

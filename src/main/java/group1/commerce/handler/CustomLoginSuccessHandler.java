@@ -59,7 +59,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             User user = userService.findUserByEmail(userDetails.getUsername());
             if (user != null) {
-                userDTO = new UserDTO(user.getIdUser(), user.getUserName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getRole());
+                userDTO = new UserDTO(user.getIdUser(), user.getUserName(), user.getEmail(),
+                        user.getPhoneNumber(), user.getAddress(), user.isPurchaseRestricted(), user.getRole());
 
             }
         }

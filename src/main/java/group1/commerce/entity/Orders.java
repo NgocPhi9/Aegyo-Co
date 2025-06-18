@@ -24,6 +24,10 @@ public class Orders {
 
     @Enumerated(EnumType.STRING)
     private OrderStage currentStatus;
+    @Enumerated(EnumType.STRING)
+    private Role cancelledBy;
+    @Enumerated(EnumType.STRING)
+    private CancelReason cancelReason;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUser", nullable = false)

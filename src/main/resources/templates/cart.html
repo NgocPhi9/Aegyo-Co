@@ -59,8 +59,10 @@
             <h3 class="label">Thành tiền:</h3>
             <h3 id="total-amount"></h3>
           </div>
-          <th:block th:if="${user != null}">
-            <button class="btn" id="buy-btn" onclick="prepareOrder(event)">MUA HÀNG</button>
+          <th:block th:if="${user != null }">
+            <button th:disabled="${user.purchaseRestricted}"
+                    th:data-isBanned="${user.purchaseRestricted}"
+                    class="btn" id="buy-btn" onclick="prepareOrder(event)">MUA HÀNG</button>
           </th:block>
           <th:block th:if="${user == null}">
             <h5 class="login-remind">Vui lòng <a href="/4Moos/login">ĐĂNG NHẬP</a> để đặt hàng!</h5>
