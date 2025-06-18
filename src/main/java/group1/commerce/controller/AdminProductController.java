@@ -143,4 +143,6 @@ public class AdminProductController {
         }
         return "redirect:/4Moos/admin/products/1";
     }
+
+
 }

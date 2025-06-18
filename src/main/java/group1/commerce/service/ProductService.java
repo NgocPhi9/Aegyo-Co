@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,7 +23,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -109,7 +107,7 @@ public class ProductService {
         if (image != null && !image.isEmpty()) {
             try {
                 // Define the directory to save images
-                String uploadDir = "src/main/resources/static/images/";
+                String uploadDir = "public/images/";
                 Path uploadPath = Paths.get(uploadDir);
 
                 if (!Files.exists(uploadPath)) {
@@ -141,6 +139,7 @@ public class ProductService {
 
         if (newImageFile != null && !newImageFile.isEmpty()) {
             String oldImageFileName = product.getImageLink();
+
             newImageFileName = System.currentTimeMillis() + "_" + newImageFile.getOriginalFilename();
 
             try {
@@ -192,7 +191,20 @@ public class ProductService {
 
     // Delete a product
     public void deleteProduct(String idProduct) {
-        productRepository.deleteById(idProduct);
+        Product product = productRepository.findById(idProduct).get();
+        ProductDetails details = product.getProductDetails();
+        if (details != null) {
+            // Important: Break the link from the parent side before deleting the child.
+            product.setProductDetails(null);
+        }
+        Path filePath = Paths.get("public/images/" + product.getImageLink());
+        try {
+            Files.deleteIfExists(filePath);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Could not delete image file: " + product.getImageLink(), e);
+        }
+        productRepository.delete(product);
     }
 
     public void viewProduct(String idProduct) {

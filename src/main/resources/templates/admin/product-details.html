@@ -77,12 +77,12 @@
                             <a class="btn btn-outline-primary btn-sm"
                                th:href="@{/4Moos/admin/products/edit(idProduct=${product.idProduct})}"
                                onclick="event.stopPropagation()">
-                                <i class="fas fa-edit"></i>
+                                Edit
                             </a>
                             <a class="btn btn-outline-danger btn-sm"
                                th:href="@{/4Moos/admin/products/delete(idProduct=${product.idProduct})}"
                                onclick="if(confirm('Are you sure?')) { event.stopPropagation(); } else { event.preventDefault(); event.stopPropagation(); }">
-                                <i class="fas fa-trash-alt"></i>
+                                Delete
                             </a>
                             <a class="btn btn-outline-secondary" href="/4Moos/admin/products/1">Back to List</a>
                         </div>

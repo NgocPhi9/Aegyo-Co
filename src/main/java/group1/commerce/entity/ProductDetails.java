@@ -2,11 +2,10 @@ package group1.commerce.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
@@ -26,4 +25,5 @@ public class ProductDetails {
     @MapsId // This makes idProduct both PK and FK
     @JoinColumn(name = "idProduct")
     private Product product;
+
 }

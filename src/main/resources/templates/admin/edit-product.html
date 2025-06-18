@@ -88,7 +88,7 @@
           <label class="col-sm-4 col-form-label">Current Image</label>
           <div class="col-sm-8">
             <div th:if="*{imageLink != null and !imageLink.isEmpty()}">
-              <img th:src="@{'public/images/' + *{imageLink}}" alt="Current Product Image" style="max-width: 150px; height: auto;" class="img-thumbnail mb-2">
+              <img th:src="@{'/images/' + *{imageLink}}" alt="Current Product Image" style="max-width: 150px; height: auto;" class="img-thumbnail mb-2">
             </div>
             <div th:if="*{imageLink == null or imageLink.isEmpty()}">
               <p class="text-muted">No image available.</p>
