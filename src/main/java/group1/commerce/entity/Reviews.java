@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,9 @@ public class Reviews {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String idReview;
 
+    @OneToOne(mappedBy = "review")
+    private OrderItem orderItem;
+
     @ManyToOne
     @JoinColumn(name = "idProduct")
     private Product product;
@@ -28,6 +32,8 @@ public class Reviews {
 
     private int rating;
     private String comment;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

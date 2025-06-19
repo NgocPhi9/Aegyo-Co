@@ -43,7 +43,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/4Moos/admin/**").hasAuthority("ROLE_ADMIN");
 
                     // Protected routes requiring authentication
-                    auth.requestMatchers("/4Moos/profile", "/4Moos/orders").authenticated();
+                    auth.requestMatchers("/4Moos/profile", "/4Moos/orders", "/4Moos/order/**").authenticated();
 
                     auth.requestMatchers("/4Moos/**").permitAll();
 

@@ -24,4 +24,9 @@ public class OrderItem {
     @ManyToOne()
     @JoinColumn(name = "idOrder", nullable = false)
     private Orders order;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idReview", referencedColumnName = "idReview")
+    private Reviews review;
+
 }
