@@ -3,11 +3,13 @@ package group1.commerce.service;
 import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.dto.ProductDTO;
-import group1.commerce.dto.UserDTO;
 import group1.commerce.entity.*;
 import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -87,23 +89,44 @@ public class OrderService {
         save(order);
     }
 
-    public List<Orders> searchUserOrders(String idUser, OrderStage status, String keyword, boolean newest) {
+    public Page<Orders> searchUserOrders(String idUser, OrderStage status, String keyword, boolean newest, int page) {
 
         Sort sort = Sort.by(newest ? Sort.Direction.DESC : Sort.Direction.ASC, "idOrder");
+        Pageable pageable = PageRequest.of(page - 1, 10, sort);
 
         if (keyword != null && !keyword.isBlank() && status != null) {
-            return orderRepository.findByIdUserAndStatusAndKeyword(idUser, status, keyword, sort);
+            return orderRepository.findByIdUserAndStatusAndKeyword(idUser, status, keyword, pageable);
         }
 
         if (keyword != null && !keyword.isBlank()) {
-            return orderRepository.findByIdUserAndKeyword(idUser, keyword, sort);
+            return orderRepository.findByIdUserAndKeyword(idUser, keyword, pageable);
         }
 
         if (status != null) {
-            return orderRepository.findByUser_IdUserAndCurrentStatus(idUser, status, sort);
+            return orderRepository.findByUser_IdUserAndCurrentStatus(idUser, status, pageable);
         }
 
-        return orderRepository.findByUser_IdUser(idUser, sort);
+        return orderRepository.findByUser_IdUser(idUser, pageable);
+    }
+
+    public Page<Orders> searchOrders(OrderStage status, String keyword, boolean newest, int page) {
+
+        Sort sort = Sort.by(newest ? Sort.Direction.DESC : Sort.Direction.ASC, "idOrder");
+        Pageable pageable = PageRequest.of(page - 1, 16, sort);
+
+        if (keyword != null && !keyword.isBlank() && status != null) {
+            return orderRepository.findOrdersByStatusAndKeyword(status, keyword, pageable);
+        }
+
+        if (keyword != null && !keyword.isBlank()) {
+            return orderRepository.findOrdersByKeyword(keyword, pageable);
+        }
+
+        if (status != null) {
+            return orderRepository.findOrdersByCurrentStatus(status, pageable);
+        }
+
+        return orderRepository.findAll(pageable);
     }
 
     public Orders getOrder(int idOrder) {
@@ -125,9 +148,21 @@ public class OrderService {
         save(order);
     }
 
+    public void editStatus(int idOrder, OrderStage status) {
+        Orders order = getOrder(idOrder);
+        order.setCurrentStatus(status);
+
+        OrderStatus newStatus = new OrderStatus();
+        newStatus.setOrder(order);
+        newStatus.setStatus(status);
+        newStatus.setStatusTime(LocalDateTime.now());
+        order.getStatusHistory().add(newStatus);
+        save(order);
+    }
+
     public void checkCancelation(String idUser, OrderStage currentStatus, CancelReason reason) {
         User user = userService.getUserById(idUser);
-        Role role =user.getRole();
+        Role role = user.getRole();
         if (role == Role.CUSTOMER && currentStatus == OrderStage.CONFIRMED ||
                 role == Role.ADMIN && reason == CancelReason.CUSTOMER_REJECTED) {
             user.setBadCancelCount(user.getBadCancelCount() + 1);

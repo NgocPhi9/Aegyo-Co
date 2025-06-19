@@ -10,22 +10,22 @@
 
     <div id="main">
       <div class="tabs">
-        <a th:href="@{'/4Moos/orders'(keyword=${keyword}, newest=${newest})}"
+        <a th:href="@{/4Moos/orders/1(keyword=${keyword}, newest=${newest})}"
            th:classappend="${selectedStatus == null} ? 'active' : ''">
           Tất cả
         </a>
         <a th:each="stage : ${statusList}"
-           th:href="@{'/4Moos/orders'(status=${stage.name()}, keyword=${keyword}, newest=${newest})}"
+           th:href="@{/4Moos/orders/1(status=${stage.name()}, keyword=${keyword}, newest=${newest})}"
            th:text="${stage.vietnameseLabel}"
            th:classappend="${selectedStatus?.name() == stage.name()} ? 'active' : ''">
         </a>
-        <a th:href="@{'/4Moos/orders'(status=${selectedStatus?.name()},keyword=${keyword}, newest=${!newest})}"
+        <a th:href="@{/4Moos/orders/1(status=${selectedStatus?.name()},keyword=${keyword}, newest=${!newest})}"
            class="sort active" th:text="'Sắp xếp: ' + ${newest ? 'Mới nhất ' : 'Cũ nhất '}">
         </a>
 
       </div>
 
-      <form class="order-search" method="get" action="/4Moos/orders" >
+      <form class="order-search" method="get" action="/4Moos/orders/1" >
         <input type="search" name="keyword" th:value="${keyword}"
                placeholder="Tìm theo tên sản phẩm hoặc mã đơn hàng"/>
         <input type="hidden" name="status" th:value="${selectedStatus?.name()}"/>
@@ -34,9 +34,9 @@
       </form>
 
       <div class="order-container">
-        <p th:if="${#lists.isEmpty(orders)}">Không có đơn hàng phù hợp.</p>
+        <p th:if="${#lists.isEmpty(ordersPage.content)}">Không có đơn hàng phù hợp.</p>
 
-        <div class="order" th:each="order : ${orders}">
+        <div class="order" th:each="order : ${ordersPage.content}">
           <a th:href="@{/4Moos/order/{id}(id=${order.idOrder})}">
             <div class="order-header">
               <p class="status" th:text="${order.currentStatus.vietnameseLabel}"
@@ -67,6 +67,8 @@
         </div>
 
       </div>
+      <div th:replace="~{fragments/pagination :: paginationLinks(baseUrl=${baseUrl},
+           currentPage=${currentPage}, totalPages=${totalPages}, totalItems=${totalItems})}"></div>
     </div>
 
   </body>

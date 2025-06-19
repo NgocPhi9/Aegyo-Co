@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="en">
   <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
     <link rel="stylesheet" href="/css/cart-style.css" />
@@ -59,7 +59,10 @@
           <div class="item" th:each="item : ${order.orderItems}">
             <a th:href="@{/4Moos/product/{id}(id=${item.idProduct})}" class="product-item">
               <img class="cart-image"
-                th:src="@{/images/{image}(image=${item.productImageLink})}" alt="Ảnh sản phẩm"/>
+                   th:src="${item.productImageLink != null} ? @{/images/{image}(image=${item.productImageLink})}
+                          : 'https://placehold.co/600x600/eee/ccc?text=Image+Not+Found'"
+                   alt="Ảnh sản phẩm"
+                   onerror="this.onerror=null;this.src='https://placehold.co/600x600/eee/ccc?text=Image+Not+Found';"/>
               <h3 th:text="${item.productName}"></h3>
             </a>
             <div class="control-item">

@@ -53,6 +53,7 @@ public class GlobalUserModel {
         } else {
             id = user.getIdUser();
         }
+        user = userService.getUserById(id);
 
         return new UserDTO(id, name, email, null, null, user.isPurchaseRestricted(), user.getRole());
     }

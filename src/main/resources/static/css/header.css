@@ -207,6 +207,6 @@ a {
   background-color: #f8f9fa;
 }
 
-.account-alert span {
+.account-alert span, .no-wrap {
   white-space: nowrap;
 }

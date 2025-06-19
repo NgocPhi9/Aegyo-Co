@@ -12,6 +12,7 @@ import group1.commerce.entity.*;
 import group1.commerce.service.CartService;
 import group1.commerce.service.OrderService;
 import group1.commerce.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -92,24 +93,30 @@ public class OrderController {
         return "checkout-success";
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/orders/{page}")
     public String viewOrders(@ModelAttribute("user") UserDTO user,
             @RequestParam(required = false) OrderStage status,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) Boolean newest,
+            @PathVariable() int page,
             Model model) {
 
         if (newest == null) {
             newest = true;
         }
 
-        List<Orders> orders = orderService.searchUserOrders(user.getIdUser(), status, keyword, newest);
+        Page<Orders> ordersPage = orderService.searchUserOrders(user.getIdUser(), status, keyword, newest, page);
 
-        model.addAttribute("orders", orders);
+        model.addAttribute("ordersPage", ordersPage);
         model.addAttribute("selectedStatus", status);
         model.addAttribute("keyword", keyword);
         model.addAttribute("newest", newest);
         model.addAttribute("statusList", List.of(OrderStage.values()));
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", ordersPage.getTotalPages());
+        model.addAttribute("totalItems", ordersPage.getTotalElements());
+        model.addAttribute("baseUrl", "/4Moos/orders");
 
         return "orders";
     }

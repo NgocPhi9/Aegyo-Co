@@ -18,4 +18,14 @@ public enum OrderStage {
         this.vietnameseLabel = label;
         this.vietnameseStatus = vietnameseStatus;
     }
+
+    public static OrderStage nextStage(OrderStage current) {
+        return switch (current) {
+            case PLACED -> CONFIRMED;
+            case CONFIRMED -> SHIPPED;
+            case SHIPPED -> DELIVERED;
+            case DELIVERED -> REVIEWED;
+            default -> null;
+        };
+    }
 }

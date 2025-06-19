@@ -5,6 +5,9 @@ import group1.commerce.entity.Role;
 import group1.commerce.entity.User;
 import group1.commerce.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +55,15 @@ public class UserService {
         save(user);
     }
 
+    public Page<User> filterUsers(String keyword, Boolean restricted, String sort, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.searchAndSort(keyword, restricted, sort, pageable);
+    }
 
+    public void setRestrict(String id) {
+        User user = getUserById(id);
+        user.setPurchaseRestricted(!user.isPurchaseRestricted());
+        save(user);
+    }
 
 }
