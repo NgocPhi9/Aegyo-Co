@@ -4,7 +4,6 @@ import group1.commerce.dto.CartDTO;
 import group1.commerce.dto.OrderItemDTO;
 import group1.commerce.dto.ProductDTO;
 import group1.commerce.entity.*;
-import group1.commerce.mapper.ProductMapper;
 import group1.commerce.repository.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -24,7 +23,7 @@ public class OrderService {
     private final UserService userService;
     private final CartService cartService;
 
-    public OrderService(OrderRepository orderRepository, ProductService productService, UserService userService, CartService cartService, ProductMapper productMapper) {
+    public OrderService(OrderRepository orderRepository, ProductService productService, UserService userService, CartService cartService) {
         this.orderRepository = orderRepository;
         this.productService = productService;
         this.userService = userService;
@@ -74,8 +73,6 @@ public class OrderService {
             orderItem.setOrder(order);
             // Xóa khỏi giỏ hàng
             cartService.removeFromCart(idUser, dto.getProduct().getIdProduct());
-            // Update số lượng sản phẩm
-            productService.sellProduct(dto.getProduct().getIdProduct(), dto.getQuantity());
             return orderItem;
         }).toList();
         order.setOrderItems(orderItems);
@@ -136,9 +133,17 @@ public class OrderService {
 
     public void cancelOrder(int idOrder, Role role, CancelReason reason) {
         Orders order = getOrder(idOrder);
+        OrderStage oldStatus = order.getCurrentStatus();
         order.setCurrentStatus(OrderStage.CANCELLED);
         order.setCancelledBy(role);
         order.setCancelReason(reason);
+
+        List<OrderItem> items = order.getOrderItems();
+        if (oldStatus == OrderStage.SHIPPED) {
+            for (OrderItem item : items) {
+                productService.returnProduct(item.getIdProduct(), item.getQuantity());
+            }
+        }
 
         OrderStatus status = new OrderStatus();
         status.setOrder(order);
@@ -151,6 +156,18 @@ public class OrderService {
     public void editStatus(int idOrder, OrderStage status) {
         Orders order = getOrder(idOrder);
         order.setCurrentStatus(status);
+
+        List<OrderItem> items = order.getOrderItems();
+        if (status == OrderStage.SHIPPED) {
+            for (OrderItem item : items) {
+                productService.shipProduct(item.getIdProduct(), item.getQuantity());
+            }
+        }
+        if (status == OrderStage.DELIVERED) {
+            for (OrderItem item : items) {
+                productService.sellProduct(item.getIdProduct(), item.getQuantity());
+            }
+        }
 
         OrderStatus newStatus = new OrderStatus();
         newStatus.setOrder(order);

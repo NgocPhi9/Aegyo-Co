@@ -218,7 +218,20 @@ public class ProductService {
         ProductDTO productDTO = getProductById(idProduct)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found "));
         productDTO.setSoldQuantity(productDTO.getSoldQuantity() + quantity);
+        saveProduct(productDTO);
+    }
+
+    public void shipProduct(String idProduct, int quantity) {
+        ProductDTO productDTO = getProductById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found "));
         productDTO.setAvailableQuantity(productDTO.getAvailableQuantity() - quantity);
+        saveProduct(productDTO);
+    }
+
+    public void returnProduct(String idProduct, int quantity) {
+        ProductDTO productDTO = getProductById(idProduct)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found "));
+        productDTO.setAvailableQuantity(productDTO.getAvailableQuantity() + quantity);
         saveProduct(productDTO);
     }
 
