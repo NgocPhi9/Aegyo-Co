@@ -18,8 +18,9 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query(value = """
         SELECT * FROM user u
-        WHERE (:keyword IS NULL OR u.idUser LIKE %:keyword% OR u.email LIKE %:keyword%)
-          AND (:restricted IS NULL OR u.purchaseRestricted = :restricted)
+        WHERE u.role = 'CUSTOMER'
+        AND (:keyword IS NULL OR u.idUser LIKE %:keyword% OR u.email LIKE %:keyword%)
+        AND (:restricted IS NULL OR u.purchaseRestricted = :restricted)
         ORDER BY
             CASE WHEN :sort = 'name_asc' THEN u.userName END ASC,
             CASE WHEN :sort = 'name_desc' THEN u.userName END DESC,
