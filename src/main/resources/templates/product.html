@@ -58,6 +58,7 @@
           <div class="tab active-review" id="reviewTab" onclick="showTab('review')">
             Đánh giá
           </div>
+
           <div class="tab" id="commentTab" onclick="showTab('comment')">
             Bình luận
           </div>
@@ -65,8 +66,43 @@
 
         <div class="content-container bg-review" id="contentContainer">
           <div class="review-content visible" id="reviewContent">
-            <p>Đây là nội dung phần review của sản phẩm hoặc dịch vụ.</p>
+
+            <div th:if="${reviews.isEmpty()}">
+              <p>This product has no reviews yet. Be the first!</p>
+            </div>
+
+            <div th:unless="${reviews.isEmpty()}" class="review-list">
+              <div class="review-card" th:each="review : ${reviews}">
+
+                <div class="review-customer-info">
+                  <div class="customer-avatar" th:text="${#strings.substring(review.user.userName, 0, 1)}">C</div>
+                  <div class="customer-name" th:text="${review.user.userName}">Customer Name</div>
+                </div>
+
+                <div class="review-content-main">
+                  <div class="review-stars">
+                    <span th:each="i : ${#numbers.sequence(1, 5)}"
+                          class="star"
+                          th:classappend="${i <= review.rating} ? 'filled' : ''">★</span>
+                  </div>
+
+                  <p class="review-comment" th:text="${review.comment}">
+                    This is the review comment text. It's excellent.
+                  </p>
+
+                  <div class="review-meta">
+                    <span class="review-date"
+                          th:text="${#temporals.format(review.createdAt, 'dd-MMM-yyyy')}">
+                        18-Jun-2025
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
+        </div>
+
           <div class="comment-content" id="commentContent">
             <p>Đây là nơi người dùng có thể bình luận và thảo luận.</p>
             <textarea class="text-box comment-box" rows="3" placeholder="Nhập bình luận của bạn..." maxlength="1000"></textarea>

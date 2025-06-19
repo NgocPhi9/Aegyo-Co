@@ -3,7 +3,9 @@ package group1.commerce.controller;
 import group1.commerce.dto.ProductDTO;
 import group1.commerce.entity.Product;
 import group1.commerce.entity.ProductSortOption;
+import group1.commerce.entity.Reviews;
 import group1.commerce.service.ProductService;
+import group1.commerce.service.ReviewService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/4Moos")
 public class ProductController {
     private final ProductService productService;
+    private final ReviewService reviewService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ReviewService reviewService) {
         this.productService = productService;
+        this.reviewService = reviewService;
     }
 
     private void addPaginationAttributesToModel(Model model, Page<ProductDTO> productsPage, String listAttributeName, int currentViewPage, String currentSortOption, String baseUrl) {
@@ -177,6 +181,10 @@ public class ProductController {
         Optional<ProductDTO> product = productService.getProductById(id);
         product.map(productDTO -> model.addAttribute("product", productDTO));
         productService.viewProduct(id);
+
+        // See reviews
+        List<Reviews> reviews = reviewService.getReviewsByProduct(id);
+        model.addAttribute("reviews", reviews);
         return "product";
     }
 }

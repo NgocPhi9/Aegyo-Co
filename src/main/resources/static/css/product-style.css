@@ -159,3 +159,91 @@
 .not-found a {
   color: black;
 }
+
+/* Add this to the end of product-style.css */
+
+.review-list {
+  margin-top: 20px;
+}
+
+.review-card {
+  display: flex;
+  padding: 24px 0;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 30px; /* Space between the two columns */
+}
+
+/* --- Left Column: Customer Info --- */
+.review-customer-info {
+  flex: 0 0 180px; /* Do not grow, do not shrink, base width of 180px */
+  text-align: left;
+}
+
+.customer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.customer-name {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.verified-purchase {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #008060; /* A shade of green */
+  margin-top: 8px;
+}
+
+.verified-purchase img {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* --- Right Column: Review Content --- */
+.review-content-main {
+  flex: 1; /* Take up the remaining space */
+}
+
+.review-stars {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.star {
+  color: #ccc; /* Color for empty stars */
+}
+
+.star.filled {
+  color: #008060; /* Color for filled stars - matches the image */
+}
+
+.review-comment {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.review-meta {
+  margin-top: 16px;
+  text-align: right; /* Pushes the date to the right */
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: #777;
+}
