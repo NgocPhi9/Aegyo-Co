@@ -1,7 +1,6 @@
 package group1.commerce.controller;
 
-import group1.commerce.entity.OrderStage;
-import group1.commerce.entity.User;
+import group1.commerce.dto.UserWithOrderCount;
 import group1.commerce.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class AdminUserController {
             }
         }
 
-        Page<User> userPage = userService.filterUsers(keyword, restrictedFilter, sort, page - 1, 16);
+        Page<UserWithOrderCount> userPage = userService.filterUsers(keyword, restrictedFilter, sort, page - 1, 16);
 
         model.addAttribute("users", userPage);
         model.addAttribute("currentPage", page);

@@ -46,18 +46,20 @@
             <option value="">Tất cả</option>
             <option value="name_asc" th:selected="${currentSortOption == 'name_asc'}">Tên A-Z</option>
             <option value="name_desc" th:selected="${currentSortOption == 'name_desc'}">Tên Z-A</option>
-            <option value="email_asc" th:selected="${currentSortOption == 'email_asc'}">Email A-Z</option>
-            <option value="email_desc" th:selected="${currentSortOption == 'email_desc'}">Email Z-A</option>
+<!--            <option value="email_asc" th:selected="${currentSortOption == 'email_asc'}">Email A-Z</option>-->
+<!--            <option value="email_desc" th:selected="${currentSortOption == 'email_desc'}">Email Z-A</option>-->
             <option value="badCancelCount_asc" th:selected="${currentSortOption == 'badCancelCount_asc'}">Hủy ít → nhiều</option>
             <option value="badCancelCount_desc" th:selected="${currentSortOption == 'badCancelCount_desc'}">Hủy nhiều → ít</option>
+            <option value="totalSpending_asc" th:selected="${currentSortOption == 'totalSpending_asc'}">Tổng chi ít → nhiều</option>
+            <option value="totalSpending_desc" th:selected="${currentSortOption == 'totalSpending_desc'}">Tổng chi nhiều → ít</option>
             <option value="restricted_true" th:selected="${currentSortOption == 'restricted_true'}">Bị giới hạn mua</option>
             <option value="restricted_false" th:selected="${currentSortOption == 'restricted_false'}">Không bị giới hạn mua</option>
         </select>
     </form>
 
-    <form class="order-search" method="get" action="/4Moos/admin/orders/1" >
+    <form class="order-search" method="get" action="/4Moos/admin/users/1" >
         <input type="search" name="keyword" th:value="${keyword}"
-               placeholder="Tìm theo ID, tên, gmail hoặc số lần hủy đơn"/>
+               placeholder="Tìm theo ID hoặc gmail"/>
         <button class="btn" type="submit">Tìm kiếm</button>
     </form>
 
@@ -65,24 +67,24 @@
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Tên</th>
                 <th scope="col">Gmail</th>
                 <th scope="col">SĐT</th>
                 <th scope="col">Địa chỉ</th>
-                <th scope="col"><span class="no-wrap">Số lần</span> <span class="no-wrap">hủy đơn</span></th>
+                <th scope="col"><span class="no-wrap">Đơn hủy / </span><span class="no-wrap">mua</span></th>
+                <th scope="col">Tổng chi</th>
                 <th scope="col">Tình trạng</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user: ${users.content}">
-                <td th:text="${user.idUser}"></td>
                 <td th:text="${user.userName}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.phoneNumber}"></td>
                 <td th:text="${user.address}"></td>
-                <td th:text="${user.badCancelCount}"></td>
+                <td th:text="${user.badCancelCount + ' / ' + user.orderCount}"></td>
+                <td th:text="${#numbers.formatDecimal(user.totalSpending, 1, 'POINT', 0, 'COMMA')} + ' ₫'"></td>
                 <td th:text="${user.purchaseRestricted} ? 'Bị hạn chế' : 'Bình thường'"></td>
                 <td>
                     <div class="action-buttons">

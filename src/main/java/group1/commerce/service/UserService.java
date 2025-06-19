@@ -1,6 +1,7 @@
 package group1.commerce.service;
 
 import group1.commerce.dto.UserRegisteredDTO;
+import group1.commerce.dto.UserWithOrderCount;
 import group1.commerce.entity.Role;
 import group1.commerce.entity.User;
 import group1.commerce.repository.UserRepository;
@@ -55,7 +56,7 @@ public class UserService {
         save(user);
     }
 
-    public Page<User> filterUsers(String keyword, Boolean restricted, String sort, int page, int size) {
+    public Page<UserWithOrderCount> filterUsers(String keyword, Boolean restricted, String sort, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.searchAndSort(keyword, restricted, sort, pageable);
     }
