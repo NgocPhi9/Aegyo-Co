@@ -98,7 +98,7 @@
                 </div>
 
                 <textarea class="text-box" name="comment" rows="4"
-                  placeholder="Viết đánh giá..." maxlength="1000" required></textarea>
+                  placeholder="Viết đánh giá..." maxlength="1000"></textarea>
                 <button class="btn" type="submit">Gửi đánh giá</button>
               </form>
               <div class="alert-message"></div>

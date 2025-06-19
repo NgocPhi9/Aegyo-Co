@@ -67,16 +67,22 @@
         <div class="content-container bg-review" id="contentContainer">
           <div class="review-content visible" id="reviewContent">
 
-            <div th:if="${reviews.isEmpty()}">
-              <p>This product has no reviews yet. Be the first!</p>
+            <div th:if="${reviews.?[rating != null].isEmpty()}">
+              <p>This product has no verified reviews yet.</p>
             </div>
 
-            <div th:unless="${reviews.isEmpty()}" class="review-list">
-              <div class="review-card" th:each="review : ${reviews}">
+            <div class="review-list">
+              <th:block th:each="review : ${reviews}">
+              <div class="review-card" th:if="${review.rating != 0}">
 
                 <div class="review-customer-info">
-                  <div class="customer-avatar" th:text="${#strings.substring(review.user.userName, 0, 1)}">C</div>
-                  <div class="customer-name" th:text="${review.user.userName}">Customer Name</div>
+                  <th:block th:if="${review.user != null}">
+                    <div class="customer-avatar" th:text="${#strings.substring(review.user.userName, 0, 1)}">U</div>
+                    <div class="customer-name" th:text="${review.user.userName}">Customer Name</div>
+                    <div class="verified-purchase">
+                      <span>Verified Purchase</span>
+                    </div>
+                  </th:block>
                 </div>
 
                 <div class="review-content-main">
@@ -86,9 +92,7 @@
                           th:classappend="${i <= review.rating} ? 'filled' : ''">★</span>
                   </div>
 
-                  <p class="review-comment" th:text="${review.comment}">
-                    This is the review comment text. It's excellent.
-                  </p>
+                  <p class="review-comment" th:text="${review.comment}"></p>
 
                   <div class="review-meta">
                     <span class="review-date"
@@ -101,13 +105,51 @@
               </div>
             </div>
           </div>
-        </div>
+
 
           <div class="comment-content" id="commentContent">
-            <p>Đây là nơi người dùng có thể bình luận và thảo luận.</p>
-            <textarea class="text-box comment-box" rows="3" placeholder="Nhập bình luận của bạn..." maxlength="1000"></textarea>
-            <button class="btn comment-btn">Gửi bình luận</button>
+            <h4>Leave a Comment</h4>
+            <form th:action="@{/4Moos/product/{id}/comment(id=${product.idProduct})}" method="post" style="margin-bottom: 30px;">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              <textarea name="commentText" class="text-box comment-box" rows="3" required placeholder="Write a public comment..."></textarea>
+              <button class="btn comment-btn" type="submit">Submit Comment</button>
+            </form>
+
+
+            <div class="comment-list">
+              <div class="review-card" th:each="item : ${reviews}" th:if="${item.rating == 0}">
+
+                <div class="review-customer-info">
+                  <th:block th:if="${item.user != null}">
+                    <div class="customer-avatar" th:text="${#strings.substring(item.user.userName, 0, 1)}">U</div>
+                    <div class="customer-name" th:text="${item.user.userName}">Customer Name</div>
+                  </th:block>
+                  <th:block th:if="${item.user == null}">
+                    <div class="customer-avatar">?</div>
+                    <div class="customer-name">Anonymous</div>
+                  </th:block>
+                </div>
+
+                <div class="review-content-main">
+                  <p class="review-comment" th:text="${item.comment}">
+                    This is the anonymous comment text.
+                  </p>
+                  <div class="review-meta">
+                    <span class="review-date"
+                          th:text="${#temporals.format(item.createdAt, 'dd-MMM-yyyy')}">
+                        19-Jun-2025
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div th:if="${reviews.?[rating == 0].isEmpty()}">
+                <p>No comments yet. Be the first to comment!</p>
+              </div>
+            </div>
+
+
           </div>
+
         </div>
       </div>
     </div>

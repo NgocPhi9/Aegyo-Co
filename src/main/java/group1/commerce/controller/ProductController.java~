@@ -200,7 +200,7 @@ public class ProductController {
     // Add this new method
     @PostMapping("/product/{id}/comment")
     public String saveComment(@PathVariable String id,
-                              @ModelAttribute("user") UserDTO loggedInUser,
+                              @ModelAttribute("user") UserDTO loggedInUser, 
                               @RequestParam String commentText) {
 
         productService.getProductById(id).ifPresent(productDTO -> {

@@ -76,6 +76,8 @@ public class ReviewService {
     }
 
     public List<Reviews> getReviewsByProduct(String idProduct) {
-        return reviewRepository.findReviewsByProduct_IdProduct(idProduct);
+        return reviewRepository.findByProduct_IdProductOrderByCreatedAtDesc(idProduct);
     };
+
+
 }
