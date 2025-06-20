@@ -21,7 +21,6 @@ const allReviewButtons = document.querySelectorAll(".review-btn");
 // const reviewBtn = document.querySelector(".review-btn");
 const cancelBtn = document.querySelector(".cancel-btn");
 const editBtn = document.querySelector(".edit-btn");
-const ratingForm = document.querySelector(".rating-container");
 const cancelConfirm = document.querySelector(".cancel-confirm");
 const editConfirm = document.querySelector(".edit-confirm");
 const overlay = document.getElementById("overlay");
@@ -51,16 +50,21 @@ cancelBtn.addEventListener("click", () => {
   overlay.style.display = "block";
 });
 
-editBtn.addEventListener("click", () => {
-  editConfirm.style.display = "block";
-  overlay.style.display = "block";
-});
+if (editBtn) {
+  editBtn.addEventListener("click", () => {
+    editConfirm.style.display = "block";
+    overlay.style.display = "block";
+  });
+}
+
 
 // Ấn nền mờ để đóng form
 overlay.addEventListener("click", () => {
   document.querySelectorAll('.rating-container').forEach(popup => {
     popup.style.display = "none";})
   cancelConfirm.style.display = "none";
-  editConfirm.style.display = "none";
+  if (editConfirm) {
+    editConfirm.style.display = "none";
+  }
   overlay.style.display = "none";
 });
