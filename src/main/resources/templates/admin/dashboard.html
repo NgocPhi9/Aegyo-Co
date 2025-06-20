@@ -2,6 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <style>
+        /* ---- CSS MỚI CHO CHIỀU CAO CỐ ĐỊNH ---- */
+        .powerbi-container {
+            /* ---- Bạn có thể thay đổi các giá trị ở đây ---- */
+            height: 550px;      /* << ĐẶT CHIỀU CAO CỐ ĐỊNH TẠI ĐÂY (ví dụ: 650px, 700px, 800px) */
+
+            max-width: 1400px;  /* Giới hạn chiều rộng tối đa (tùy chọn) */
+            width: 95%;         /* Chiếm 95% chiều rộng (tùy chọn) */
+            margin: 40px auto;  /* Căn giữa và tạo khoảng cách */
+
+            /* Các thuộc tính trang trí (giữ nguyên) */
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* CSS cho iframe bây giờ rất đơn giản */
+        .powerbi-container iframe {
+            width: 100%;
+            height: 100%; /* Lấp đầy 100% chiều cao của container (tức là 700px) */
+            border: none;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{fragments/header-admin :: header-admin}"></div>
@@ -9,6 +32,9 @@
 <div id="main">
     <div class="section-title">
         <h2>Dashboard</h2>
+    </div>
+    <div class="powerbi-container">
+        <iframe title="tmdt3" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d2f5c2a0-44d0-4827-8412-de3e2bdd2587&autoAuth=true&ctid=e7572e92-7aee-4713-a3c4-ba64888ad45f" frameborder="0" allowFullScreen="true"></iframe>
     </div>
 
 </div>

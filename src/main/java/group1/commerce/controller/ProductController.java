@@ -180,7 +180,6 @@ public class ProductController {
         return "all-artists"; // Your existing template name
     }
 
-
     // Get product by id
     @GetMapping("/product/{id}")
     public String getProductById(@PathVariable String id, Model model) {
