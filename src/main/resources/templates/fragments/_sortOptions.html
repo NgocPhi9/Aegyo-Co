@@ -5,7 +5,7 @@
      class="sorting-controls" style="margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 5px;">
     <form th:action="${baseUrl} + '/1'" method="get" id="sortForm" style="display: flex; flex-wrap: wrap; justify-content: right; gap: 10px;">
         <th:block th:if="${otherParams != null}">
-            <input type="hidden" th:each="param : ${otherParams}" th:name="${param.key}" th:value="${param.value}" />
+            <input type="hidden" th:each="p : ${otherParams}" th:name="${p.key}" th:value="${p.value}" />
         </th:block>
 
         <label for="sortSelect" style="font-weight: bold; align-self: center;">Sort By:</label>

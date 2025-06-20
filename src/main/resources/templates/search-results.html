@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+    <title>Search Results</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div id="main">
+    <div class="section-title">
+        <h4>Search Results for: "<span th:text="${keyword}"></span>"</h4>
+        <p th:if="${totalItems > 0}" th:text="'Found ' + ${totalItems} + ' products.'"></p>
+        <p th:if="${totalItems == 0}">No products found matching your search.</p>
+    </div>
+
+    <div th:if="${totalItems > 0}" th:replace="~{fragments/_sortOptions :: sortControls(currentSortOption=${currentSortOption}, sortOptions=${sortOptions}, baseUrl=${baseUrl}, otherParams=${otherParams})}"></div>
+
+    <div th:replace="~{fragments/featured-products :: featured-products}"></div>
+
+    <div th:replace="~{fragments/pagination :: paginationLinks(baseUrl=${baseUrl}, currentPage=${currentPage}, totalPages=${totalPages}, totalItems=${totalItems}, otherParams=${otherParams})}"></div>
+</div>
+
+<script src="/js/cart.js"></script>
+</body>
+</html>

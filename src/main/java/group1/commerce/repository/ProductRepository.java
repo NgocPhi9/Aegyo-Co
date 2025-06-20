@@ -38,5 +38,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query("SELECT DISTINCT p.artist FROM Product p WHERE p.artist IS NOT NULL AND p.artist <> '' ORDER BY p.artist ASC")
     List<String> findAllArtist();
 
+    Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
+
+
 
 }

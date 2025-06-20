@@ -224,4 +224,33 @@ public class ProductController {
         return "redirect:/4Moos/product/" + id;
     }
 
+    @GetMapping("/search/{page}")
+    public String searchResults(@RequestParam("keyword") String keyword,
+                                @PathVariable("page") int page,
+                                @RequestParam(name = "sort", defaultValue = "BEST_SELLING") String sortOptionString,
+                                Model model) {
+        int pageSize = 16;
+        Page<ProductDTO> resultsPage = productService.searchProducts(keyword, page, pageSize, sortOptionString);
+
+        model.addAttribute("products", resultsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", resultsPage.getTotalPages());
+        model.addAttribute("totalItems", resultsPage.getTotalElements());
+
+        // Pass sorting data
+        model.addAttribute("currentSortOption", sortOptionString);
+        model.addAttribute("sortOptions", Arrays.asList(ProductSortOption.values()));
+
+        model.addAttribute("keyword", keyword);
+
+        String baseUrl = "/4Moos/search";
+        Map<String, String> otherParams = new HashMap<>();
+        otherParams.put("keyword", keyword);
+        model.addAttribute("baseUrl", baseUrl);
+        model.addAttribute("otherParams", otherParams);
+
+
+        return "search-results";
+    }
+
 }

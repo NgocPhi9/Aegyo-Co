@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-  <head th:replace="~{fragments/head :: head}">
+  <head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+
   </head>
   <body>
     <header th:fragment="header">
@@ -75,7 +77,9 @@
         </div>
         <div class="header-part">
           <div class="header-searchbar">
-            <input type="search" placeholder="Search..." />
+            <form th:action="@{/4Moos/search/1}" method="get" class="d-flex">
+              <input class="form-control" type="search" name="keyword" placeholder="Search products..." aria-label="Search" required>
+            </form>
           </div>
           <div class="header-profile">
             <div class="profile-dropdown">
