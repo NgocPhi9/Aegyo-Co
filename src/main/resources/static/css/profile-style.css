@@ -1,0 +1,83 @@
+.profile-container {
+    display: flex;
+    gap: 30px; /* Space between sidebar and content */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    align-items: flex-start; /* Aligns items to the top */
+}
+
+/* Left Sidebar */
+.profile-sidebar {
+    flex: 0 0 250px;
+    background-color: #f8f9fa; /* Light background for the sidebar */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.sidebar-header .customer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #d9534f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar-header span {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.sidebar-nav a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.sidebar-nav ul li a {
+    font-weight: normal;
+    padding: 6px 0;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.sidebar-nav ul li a:hover {
+    color: #d9534f;
+}
+
+.sidebar-nav ul li a.active-link {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+/* Right Content Area */
+.profile-content {
+    flex: 1; /* Takes up the remaining space */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}

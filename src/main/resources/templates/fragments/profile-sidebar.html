@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="sidebar(activeTab, user)">
+  <div class="profile-sidebar">
+    <nav class="sidebar-nav">
+      <a>Tài Khoản Của Tôi</a>
+      <ul>
+        <li><a th:href="@{/4Moos/profile}" th:classappend="${activeTab == 'profile'} ? 'active-link'">Hồ Sơ</a></li>
+        <li><a th:href="@{/4Moos/profile/address}" th:classappend="${activeTab == 'address'} ? 'active-link'">Địa Chỉ</a></li>
+        <li><a th:href="@{/4Moos/profile/password}" th:classappend="${activeTab == 'password'} ? 'active-link'">Đổi Mật Khẩu</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+</body>
+</html>
