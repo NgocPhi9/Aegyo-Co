@@ -173,7 +173,7 @@
           <div th:replace="~{fragments/featured-products :: featured-products}"></div>
         </div>
       </div>
-
+      
     </div>
     <script src="/js/cart.js"></script>
     <script src="/js/review.js"></script>

@@ -186,12 +186,35 @@ public class ProductController {
     public String getProductById(@PathVariable String id, Model model) {
         Optional<ProductDTO> product = productService.getProductById(id);
         product.map(productDTO -> model.addAttribute("product", productDTO));
+
         productService.viewProduct(id);
 
         // See reviews
         List<Reviews> reviews = reviewService.getReviewsByProduct(id);
         model.addAttribute("reviews", reviews);
         model.addAttribute("newComment", new Reviews());
+
+        if (product.isPresent()) {
+            ProductDTO currentProduct = product.get();
+
+            // Get up to 12 recommendations for the same artist, excluding the current product
+            List<ProductDTO> artistRecommendations = productService.getRecommendationsByArtist(
+                    currentProduct.getArtist(),
+                    currentProduct.getIdProduct(),
+                    8
+            );
+
+            // Get up to 12 recommendations for the same category, excluding the current product
+            List<ProductDTO> categoryRecommendations = productService.getRecommendationsByCategory(
+                    currentProduct.getCategory(),
+                    currentProduct.getIdProduct(),
+                    8
+            );
+
+            // Add the new recommendation lists to the model for the template to use
+            model.addAttribute("artistRecs", artistRecommendations);
+            model.addAttribute("categoryRecs", categoryRecommendations);
+        }
         return "product";
     }
 
@@ -252,5 +275,6 @@ public class ProductController {
 
         return "search-results";
     }
+
 
 }

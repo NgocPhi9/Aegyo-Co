@@ -244,4 +244,21 @@ public class ProductService {
         return productsPage.map(productMapper::toDTO);
     }
 
+    // In ProductService.java
+
+    // In ProductService.java
+
+    public List<ProductDTO> getRecommendationsByArtist(String artist, String currentProductId, int limit) {
+        // PageRequest is a simple way to say "give me the first 'limit' results"
+        Pageable pageable = PageRequest.of(0, limit);
+        List<Product> products = productRepository.findByArtistAndIdProductNot(artist, currentProductId, pageable);
+        return productMapper.toDTOList(products);
+    }
+
+    public List<ProductDTO> getRecommendationsByCategory(String category, String currentProductId, int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        List<Product> products = productRepository.findByCategoryAndIdProductNot(category, currentProductId, pageable);
+        return productMapper.toDTOList(products);
+    }
+
 }

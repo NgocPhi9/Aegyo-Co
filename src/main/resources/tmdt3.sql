@@ -209,15 +209,14 @@ CREATE TABLE `reviews` (
                            `idReview` varchar(36) NOT NULL DEFAULT 'uuid()',
                            `idProduct` varchar(36),
                            `idUser` varchar(36),
-                           `rating` int NOT NULL,
+                           `rating` int,
                            `comment` text,
                            `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
                            PRIMARY KEY (`idReview`),
                            KEY `fk_reviews_idProduct` (`idProduct`),
                            KEY `fk_reviews_idUser` (`idUser`),
                            CONSTRAINT `fk_reviews_idProduct` FOREIGN KEY (`idProduct`) REFERENCES `product` (`idProduct`),
-                           CONSTRAINT `fk_reviews_idUser` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`),
-                           CONSTRAINT `reviews_chk_1` CHECK ((`rating` between 1 and 5))
+                           CONSTRAINT `fk_reviews_idUser` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

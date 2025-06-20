@@ -40,6 +40,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     Page<Product> findByProductNameContainingIgnoreCase(String keyword, Pageable pageable);
 
+    // In ProductRepository.java
+
+    // Finds products by the same artist, excluding the current product ID
+    List<Product> findByArtistAndIdProductNot(String artist, String idProduct, Pageable pageable);
+
+    // Finds products in the same category, excluding the current product ID
+    List<Product> findByCategoryAndIdProductNot(String category, String idProduct, Pageable pageable);
 
 
 }
