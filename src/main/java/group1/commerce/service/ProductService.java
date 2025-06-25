@@ -235,18 +235,12 @@ public class ProductService {
         saveProduct(productDTO);
     }
 
-    // In ProductService.java
-
     public Page<ProductDTO> searchProducts(String keyword, int page, int size, String sortOptionString) {
         ProductSortOption sortOption = ProductSortOption.fromString(sortOptionString, ProductSortOption.BEST_SELLING);
         Pageable pageable = PageRequest.of(page - 1, size, sortOption.getSort());
         Page<Product> productsPage = productRepository.findByProductNameContainingIgnoreCase(keyword, pageable);
         return productsPage.map(productMapper::toDTO);
     }
-
-    // In ProductService.java
-
-    // In ProductService.java
 
     public List<ProductDTO> getRecommendationsByArtist(String artist, String currentProductId, int limit) {
         // PageRequest is a simple way to say "give me the first 'limit' results"

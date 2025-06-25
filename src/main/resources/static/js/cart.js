@@ -222,10 +222,8 @@ function prepareOrder(event) {
 function updateBuyButtonState() {
   const selected = document.querySelectorAll('.product-checkbox:checked').length > 0;
   const buyButton = document.getElementById('buy-btn');
-  const isBanned = buyButton.getAttribute('data-isBanned') === 'true';
-
-  if (!buyButton || isBanned) {
-    return;
+  if (!buyButton) {
+    const isBanned = buyButton.getAttribute('data-isBanned') === 'true';
   }
   buyButton.disabled = !selected;
 }

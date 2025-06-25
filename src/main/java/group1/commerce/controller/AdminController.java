@@ -95,6 +95,11 @@ public class AdminController {
                                  @RequestParam String confirmPassword,
                                  RedirectAttributes redirectAttributes) {
 
+        if (newPassword.equals(currentPassword)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "New password cannot be the same as the current password.");
+            return "redirect:/4Moos/admin/profile/password";
+        }
+
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
             return "redirect:/4Moos/admin/profile/password";

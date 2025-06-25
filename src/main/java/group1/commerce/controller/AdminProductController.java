@@ -94,7 +94,7 @@ public class AdminProductController {
     }
 
     @GetMapping("/details")
-    public String internDetails(@RequestParam String idProduct, Model model) {
+    public String productDetails(@RequestParam String idProduct, Model model) {
         ProductDTO product = productService.getProductById(idProduct).orElse(null);
 
         model.addAttribute("product", product);

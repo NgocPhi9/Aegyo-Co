@@ -10,6 +10,11 @@
   <div class="row">
     <div class="col-md-8 mx-auto rounded border p-4 mt-4 bg-light">
       <h2 class="text-center mb-5">Edit Product</h2>
+      <div th:if="${successMessage}" class="alert alert-success" role="alert" >
+
+        <span th:text="${successMessage}"></span>
+
+      </div>
 
       <form th:action="@{/4Moos/admin/products/edit}" method="post" enctype="multipart/form-data" th:object="${product}">
         <!-- Hidden input to hold the product ID -->

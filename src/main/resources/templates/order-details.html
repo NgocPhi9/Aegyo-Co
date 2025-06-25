@@ -54,7 +54,11 @@
         <button class="btn cancel-btn" >Xác nhận</button>
       </form>
 
+
       <div class="cart-container">
+        <div th:if="${successMessage}" class="alert alert-success" role="alert" style="width: 100%; margin: 10px 0;">
+          <span th:text="${successMessage}"></span>
+        </div>
         <div class="list-items">
           <div class="item" th:each="item : ${order.orderItems}">
             <a th:href="@{/4Moos/product/{id}(id=${item.idProduct})}" class="product-item">
