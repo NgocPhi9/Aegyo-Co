@@ -208,16 +208,6 @@ Key entities include:
 
 This is an academic/portfolio project. If you'd like to suggest improvements, please feel free to reach out.
 
-## 📄 License
-
-[Specify your license here]
-
-## 📧 Contact
-
-**Your Name** - [Your Email]
-- LinkedIn: [Your LinkedIn]
-- Portfolio: [Your Portfolio URL]
-
 ---
 
 ⭐ If you found this project interesting, please consider giving it a star!
