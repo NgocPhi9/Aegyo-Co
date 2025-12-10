@@ -1,3 +1,4 @@
+Aegyo&Co 🎵
 A full-stack e-commerce platform specializing in K-pop merchandise, including albums, lightsticks, and official merchandise. Built with Spring Boot and modern web technologies.
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
@@ -15,29 +16,29 @@ Aegyo&Co is a comprehensive e-commerce solution that provides a seamless shoppin
 Customer Interface
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/b39341aa-13b5-4bff-ba21-3f6a94f45b6f" alt="Homepage" width="400"/><br/><sub><b>Homepage</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/d4efd0e2-b7a8-4a83-b228-e3886b15df43" alt="Product Page" width="400"/><br/><sub><b>Product Page</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/b39341aa-13b5-4bff-ba21-3f6a94f45b6f" alt="Homepage" width="600" height="400"/><br/><sub><b>Homepage</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/d4efd0e2-b7a8-4a83-b228-e3886b15df43" alt="Product Page" width="600" height="400"/><br/><sub><b>Product Page</b></sub></td>
 
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/2b66e5ba-b5d3-4ee3-b32f-1d11a8afa612" alt="Login" width="400"/><br/><sub><b>Login Interface</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/9cde3be0-dc42-4ab7-986d-8cae92187871" alt="Product Display" width="400"/><br/><sub><b>Product Details</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/2b66e5ba-b5d3-4ee3-b32f-1d11a8afa612" alt="Login" width="600" height="400"/><br/><sub><b>Login Interface</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/9cde3be0-dc42-4ab7-986d-8cae92187871" alt="Product Display" width="600" height="400"/><br/><sub><b>Product Details</b></sub></td>
 
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/3bedd2df-22f3-48d2-882c-bf02796b5320" alt="Shopping Cart" width="400"/><br/><sub><b>Shopping Cart</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/863610d2-4b98-4b85-b135-e3bf0c99ac86" alt="Cart Management" width="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/3bedd2df-22f3-48d2-882c-bf02796b5320" alt="Shopping Cart" width="600" height="400"/><br/><sub><b>Shopping Cart</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/863610d2-4b98-4b85-b135-e3bf0c99ac86" alt="Cart Management" width="600" height="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
   </tr>
   <tr>
-  <td><img src="https://github.com/user-attachments/assets/59419003-7eb3-4e00-bee4-3e1718a95635" alt="Order Cancel" width="400"/><br/><sub><b>Cart</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/3eaf6cb1-3c70-4f19-bb52-474c62363971" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
+  <td><img src="https://github.com/user-attachments/assets/59419003-7eb3-4e00-bee4-3e1718a95635" alt="Order Cancel" width="600" height="400"/><br/><sub><b>Cart</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/3eaf6cb1-3c70-4f19-bb52-474c62363971" alt="Product Review" width="600" height="400"/><br/><sub><b>Product Review System</b></sub></td>
   </tr>
 </table>
 Admin Dashboard
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/12058366-a8ae-487d-9dd9-7913b9058570" alt="Product Management" width="400"/><br/><sub><b>Product Management</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/4c4727cf-3611-4ac6-a5b7-671169984ee0" alt="Customer Management" width="400"/><br/><sub><b>Customer Management</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/12058366-a8ae-487d-9dd9-7913b9058570" alt="Product Management" width="600" height="400"/><br/><sub><b>Product Management</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/4c4727cf-3611-4ac6-a5b7-671169984ee0" alt="Customer Management"width="600" height="400"/><br/><sub><b>Customer Management</b></sub></td>
   </tr>
 
 </table>
