@@ -13,6 +13,44 @@ Aegyo&Co is a comprehensive e-commerce solution that provides a seamless shoppin
 
 **Demo**: *[Video/GIF demo coming soon]*
 
+🖼️ Screenshots
+Customer Interface
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b39341aa-13b5-4bff-ba21-3f6a94f45b6f" alt="Homepage" width="400"/><br/><sub><b>Homepage</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/d4efd0e2-b7a8-4a83-b228-e3886b15df43" alt="Product Page" width="400"/><br/><sub><b>Product Details Page</b></sub></td>
+
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/2b66e5ba-b5d3-4ee3-b32f-1d11a8afa612" alt="Login" width="400"/><br/><sub><b>Login Interface</b></sub></td>
+    
+    <td><img src="screenshots/product-display.png" alt="Product Display" width="400"/><br/><sub><b>Product Catalog</b></sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/cart.png" alt="Shopping Cart" width="400"/><br/><sub><b>Shopping Cart</b></sub></td>
+    <td><img src="screenshots/cart-management.png" alt="Cart Management" width="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/order-cancel.png" alt="Order Cancel" width="400"/><br/><sub><b>Order Cancellation</b></sub></td>
+    <td><img src="screenshots/review.png" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
+  </tr>
+</table>
+Admin Dashboard
+<table>
+  <tr>
+    <td><img src="screenshots/admin-products.png" alt="Product Management" width="400"/><br/><sub><b>Product Management</b></sub></td>
+    <td><img src="screenshots/admin-edit-product.png" alt="Edit Product" width="400"/><br/><sub><b>Edit Product Information</b></sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/admin-add-product.png" alt="Add Product" width="400"/><br/><sub><b>Add New Product</b></sub></td>
+    <td><img src="screenshots/admin-delete-product.png" alt="Delete Product" width="400"/><br/><sub><b>Delete Product</b></sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/admin-users.png" alt="User Management" width="400"/><br/><sub><b>Customer Account Management</b></sub></td>
+    <td><img src="screenshots/admin-orders.png" alt="Order Management" width="400"/><br/><sub><b>Order Management</b></sub></td>
+  </tr>
+</table>
+
 ## 👥 Team & Contributions
 
 This project was developed by a team of 2 developers. My primary contributions include:
