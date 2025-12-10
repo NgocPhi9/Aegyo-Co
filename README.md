@@ -1,5 +1,3 @@
-<img width="937" height="484" alt="image" src="https://github.com/user-attachments/assets/3eaf6cb1-3c70-4f19-bb52-474c62363971" /># Aegyo&Co 🎵
-
 A full-stack e-commerce platform specializing in K-pop merchandise, including albums, lightsticks, and official merchandise. Built with Spring Boot and modern web technologies.
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
@@ -31,15 +29,15 @@ Customer Interface
     <td><img src="https://github.com/user-attachments/assets/863610d2-4b98-4b85-b135-e3bf0c99ac86" alt="Cart Management" width="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
   </tr>
   <tr>
-  <td><img src="[screenshots/order-cancel.png](https://github.com/user-attachments/assets/59419003-7eb3-4e00-bee4-3e1718a95635)" alt="Order Cancel" width="400"/><br/><sub><b>Cart</b></sub></td>
-    <td><img src="[screenshots/review.png](https://github.com/user-attachments/assets/ebfad5b5-a74c-4acc-9044-051b52fa7159)" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
+  <td><img src="https://github.com/user-attachments/assets/59419003-7eb3-4e00-bee4-3e1718a95635" alt="Order Cancel" width="400"/><br/><sub><b>Cart</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/3eaf6cb1-3c70-4f19-bb52-474c62363971" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
   </tr>
 </table>
 Admin Dashboard
 <table>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/12058366-a8ae-487d-9dd9-7913b9058570" alt="Product Management" width="400"/><br/><sub><b>Product Management</b></sub></td>
-    <td><img src="[https://github.com/user-attachments/assets/c95639e8-323c-47e9-99d6-f8de21c91ee5](https://github.com/user-attachments/assets/4c4727cf-3611-4ac6-a5b7-671169984ee0)" alt="Edit Product" width="400"/><br/><sub><b>Customer Management</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/4c4727cf-3611-4ac6-a5b7-671169984ee0" alt="Customer Management" width="400"/><br/><sub><b>Customer Management</b></sub></td>
   </tr>
 
 </table>
