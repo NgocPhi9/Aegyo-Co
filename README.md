@@ -1,4 +1,4 @@
-Aegyo&Co 🎵
+<h1>Aegyo&Co 🎵</h1>
 A full-stack e-commerce platform specializing in K-pop merchandise, including albums, lightsticks, and official merchandise. Built with Spring Boot and modern web technologies.
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
