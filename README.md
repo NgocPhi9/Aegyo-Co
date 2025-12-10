@@ -1,4 +1,4 @@
-# Aegyo&Co 🎵
+<img width="937" height="484" alt="image" src="https://github.com/user-attachments/assets/3eaf6cb1-3c70-4f19-bb52-474c62363971" /># Aegyo&Co 🎵
 
 A full-stack e-commerce platform specializing in K-pop merchandise, including albums, lightsticks, and official merchandise. Built with Spring Boot and modern web technologies.
 
@@ -18,37 +18,30 @@ Customer Interface
 <table>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/b39341aa-13b5-4bff-ba21-3f6a94f45b6f" alt="Homepage" width="400"/><br/><sub><b>Homepage</b></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/d4efd0e2-b7a8-4a83-b228-e3886b15df43" alt="Product Page" width="400"/><br/><sub><b>Product Details Page</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/d4efd0e2-b7a8-4a83-b228-e3886b15df43" alt="Product Page" width="400"/><br/><sub><b>Product Page</b></sub></td>
 
   </tr>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/2b66e5ba-b5d3-4ee3-b32f-1d11a8afa612" alt="Login" width="400"/><br/><sub><b>Login Interface</b></sub></td>
-    
-    <td><img src="screenshots/product-display.png" alt="Product Display" width="400"/><br/><sub><b>Product Catalog</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/9cde3be0-dc42-4ab7-986d-8cae92187871" alt="Product Display" width="400"/><br/><sub><b>Product Details</b></sub></td>
+
   </tr>
   <tr>
-    <td><img src="screenshots/cart.png" alt="Shopping Cart" width="400"/><br/><sub><b>Shopping Cart</b></sub></td>
-    <td><img src="screenshots/cart-management.png" alt="Cart Management" width="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/3bedd2df-22f3-48d2-882c-bf02796b5320" alt="Shopping Cart" width="400"/><br/><sub><b>Shopping Cart</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/863610d2-4b98-4b85-b135-e3bf0c99ac86" alt="Cart Management" width="400"/><br/><sub><b>Cart Management & Editing</b></sub></td>
   </tr>
   <tr>
-    <td><img src="screenshots/order-cancel.png" alt="Order Cancel" width="400"/><br/><sub><b>Order Cancellation</b></sub></td>
-    <td><img src="screenshots/review.png" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
+  <td><img src="[screenshots/order-cancel.png](https://github.com/user-attachments/assets/59419003-7eb3-4e00-bee4-3e1718a95635)" alt="Order Cancel" width="400"/><br/><sub><b>Cart</b></sub></td>
+    <td><img src="[screenshots/review.png](https://github.com/user-attachments/assets/ebfad5b5-a74c-4acc-9044-051b52fa7159)" alt="Product Review" width="400"/><br/><sub><b>Product Review System</b></sub></td>
   </tr>
 </table>
 Admin Dashboard
 <table>
   <tr>
-    <td><img src="screenshots/admin-products.png" alt="Product Management" width="400"/><br/><sub><b>Product Management</b></sub></td>
-    <td><img src="screenshots/admin-edit-product.png" alt="Edit Product" width="400"/><br/><sub><b>Edit Product Information</b></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/12058366-a8ae-487d-9dd9-7913b9058570" alt="Product Management" width="400"/><br/><sub><b>Product Management</b></sub></td>
+    <td><img src="[https://github.com/user-attachments/assets/c95639e8-323c-47e9-99d6-f8de21c91ee5](https://github.com/user-attachments/assets/4c4727cf-3611-4ac6-a5b7-671169984ee0)" alt="Edit Product" width="400"/><br/><sub><b>Customer Management</b></sub></td>
   </tr>
-  <tr>
-    <td><img src="screenshots/admin-add-product.png" alt="Add Product" width="400"/><br/><sub><b>Add New Product</b></sub></td>
-    <td><img src="screenshots/admin-delete-product.png" alt="Delete Product" width="400"/><br/><sub><b>Delete Product</b></sub></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/admin-users.png" alt="User Management" width="400"/><br/><sub><b>Customer Account Management</b></sub></td>
-    <td><img src="screenshots/admin-orders.png" alt="Order Management" width="400"/><br/><sub><b>Order Management</b></sub></td>
-  </tr>
+
 </table>
 
 ## 👥 Team & Contributions
